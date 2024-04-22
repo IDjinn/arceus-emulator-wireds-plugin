@@ -6,6 +6,7 @@ import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.entities.events.RoomEntityTalkEvent;
+import org.emulator.wireds.boxes.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +32,9 @@ public class WiredTriggerEntitySayKeyword extends WiredTrigger {
                                 this.getPosition()
                         )
                 ).addTrigger(this)
+                        .addEntity(WiredEntitySourceType.Trigger, entityTalkEvent.entity())
         );
+
+        if (result.isEmpty()) return;
     }
 }

@@ -6,6 +6,7 @@ import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.components.objects.items.IRoomItemData;
 
 public class WiredSelectorFilterFurniture extends WiredSelector {
+    public static final String InteractionName = "wf_act_show_message";
     public WiredSelectorFilterFurniture(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
     }

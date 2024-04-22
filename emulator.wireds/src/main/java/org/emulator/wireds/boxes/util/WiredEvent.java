@@ -98,6 +98,11 @@ public class WiredEvent extends PipelineEvent {
         return this;
     }
 
+    public WiredEvent removeEntity(WiredItemSourceType sourceType, IRoomEntity entity) {
+        this.items.get(sourceType).remove(entity);
+        return this;
+    }
+
     public WiredEvent addEntities(WiredEntitySourceType sourceType, List<? extends IRoomEntity> entity){
         this.entities.get(sourceType).addAll(entity);
         return this;
@@ -105,6 +110,11 @@ public class WiredEvent extends PipelineEvent {
     
     public WiredEvent addItem(WiredItemSourceType sourceType, IRoomItem item){
         this.items.get(sourceType).add(item);
+        return this;
+    }
+
+    public WiredEvent removeItem(WiredItemSourceType sourceType, IRoomItem item) {
+        this.items.get(sourceType).remove(item);
         return this;
     }
     

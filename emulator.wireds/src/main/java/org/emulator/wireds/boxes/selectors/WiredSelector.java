@@ -1,5 +1,6 @@
 package org.emulator.wireds.boxes.selectors;
 
+import com.google.inject.Inject;
 import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItem;
@@ -18,6 +19,7 @@ public class WiredSelector extends WiredItem {
     protected final List<Area> areas;
     protected boolean allowWallItems;
 
+    @Inject
     public WiredSelector(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
         this.areas = new ArrayList<>(1);
