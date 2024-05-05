@@ -6,7 +6,7 @@ import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.entities.events.RoomEntityTalkEvent;
-import org.emulator.wireds.boxes.WiredEntitySourceType;
+import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,6 +17,16 @@ public class WiredTriggerEntitySayKeyword extends WiredTrigger {
 
     public WiredTriggerEntitySayKeyword(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
+    }
+
+    @Override
+    public int getInterface() {
+        return 0;
+    }
+
+    @Override
+    public int getMaxSelectionCount() {
+        return 0;
     }
 
 

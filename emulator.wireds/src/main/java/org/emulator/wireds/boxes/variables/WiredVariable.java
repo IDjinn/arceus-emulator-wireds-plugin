@@ -1,4 +1,4 @@
-package org.emulator.wireds.boxes.triggers;
+package org.emulator.wireds.boxes.variables;
 
 import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;
@@ -6,10 +6,10 @@ import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.entities.IPlayerEntity;
 import habbo.rooms.entities.IRoomEntity;
 import org.emulator.wireds.boxes.WiredItem;
-import org.emulator.wireds.messages.outgoing.WiredTriggerMessageComposer;
+import org.emulator.wireds.messages.outgoing.WiredVariableMessageComposer;
 
-public abstract class WiredTrigger extends WiredItem {
-    public WiredTrigger(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
+public abstract class WiredVariable extends WiredItem {
+    public WiredVariable(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
     }
 
@@ -22,6 +22,6 @@ public abstract class WiredTrigger extends WiredItem {
             return;
 
         this.setFlashing(true);
-        player.getClient().sendMessage(new WiredTriggerMessageComposer(this));
+        player.getClient().sendMessage(new WiredVariableMessageComposer(this));
     }
 }

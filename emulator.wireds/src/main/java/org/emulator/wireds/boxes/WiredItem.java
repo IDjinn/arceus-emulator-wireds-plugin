@@ -1,23 +1,43 @@
 package org.emulator.wireds.boxes;
 
 import habbo.furniture.IFurniture;
+import habbo.furniture.extra.data.MapExtraData;
 import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.components.objects.items.floor.AdvancedFloorItem;
+import habbo.variables.IVariable;
+import networking.packets.OutgoingPacket;
+import org.emulator.wireds.boxes.util.WiredEntitySourceType;
+import org.emulator.wireds.boxes.util.WiredItemSourceType;
+import org.emulator.wireds.boxes.util.WiredSelectionType;
+import org.emulator.wireds.boxes.util.WiredVariableContextType;
 import org.emulator.wireds.component.WiredExecutionPipeline;
 import org.emulator.wireds.component.WiredManager;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 @SuppressWarnings("PublicMethodNotExposedInInterface")
 public abstract class WiredItem extends AdvancedFloorItem {
+    private static final Map<String, Function<WiredItem, String>> COMMON_WIRED_VARIABLES = new HashMap<>() {
+        {
+            this.put("this.position.x", wiredItem -> String.valueOf(wiredItem.getPosition().getX()));
+            this.put("this.position.y", wiredItem -> String.valueOf(wiredItem.getPosition().getY()));
+            this.put("this.position.z", wiredItem -> String.valueOf(wiredItem.getPosition().getZ()));
+        }
+    };
+            
+    
     private final WiredItemSettings settings;
     private final Map<Integer, IRoomItem> selectedItems;
+    private final Map<String, IVariable> contextVariables;
+    
+    
     protected boolean isFlashing;
     protected WiredExecutionPipeline executionPipeline;
 
@@ -26,6 +46,7 @@ public abstract class WiredItem extends AdvancedFloorItem {
         this.settings = new WiredItemSettings();
         this.selectedItems = new HashMap<>();
         this.executionPipeline = Objects.requireNonNull(room.getCustomComponent(WiredManager.class)).getExecutionPipeline();
+        this.contextVariables = new HashMap<>();
     }
 
     @Override
@@ -39,10 +60,6 @@ public abstract class WiredItem extends AdvancedFloorItem {
             else
                 this.selectItem(item);
         }
-    }
-
-    public Map<Integer, Integer> getParameters() {
-        return this.settings.getParameters();
     }
 
     public Map<Integer, IRoomItem> getSelectedItems() {
@@ -59,20 +76,12 @@ public abstract class WiredItem extends AdvancedFloorItem {
         this.selectedItems.remove(roomItem.getId());
     }
 
-    public @Nullable String getData() {
-        return this.settings.getData();
+    public EnumSet<WiredSelectionType> getSelectionType() {
+        return this.settings.getSelectionTypes();
     }
 
-    public void setData(final @Nullable String data) {
-        this.settings.setData(data);
-    }
-
-    public WiredSelectionType getSelectionType() {
-        return this.settings.getSelectionType();
-    }
-
-    public void setSelectionType(final WiredSelectionType selectionType) {
-        this.settings.setSelectionType(selectionType);
+    public void setSelectionTypes(final EnumSet<WiredSelectionType> selectionTypes) {
+        this.settings.setSelectionTypes(selectionTypes);
     }
     
     public WiredItemSettings getSettings() {
@@ -106,5 +115,34 @@ public abstract class WiredItem extends AdvancedFloorItem {
     
     public WiredExecutionPipeline getExecutionPipeline() {
         return this.executionPipeline;
+    }
+
+    public abstract int getInterface();
+
+    public abstract int getMaxSelectionCount();
+
+    public Map<String, IVariable> getContextVariables() {
+        return this.contextVariables;
+    }
+
+    public WiredVariableContextType getWiredVariableContextType() {
+        return this.settings.getWiredVariableContextType();
+    }
+
+    public void serializeCommonVariables(final OutgoingPacket packet) {
+        packet.appendInt(COMMON_WIRED_VARIABLES.size());
+        for (final Map.Entry<String, Function<WiredItem, String>> entry : COMMON_WIRED_VARIABLES.entrySet()) {
+            packet.appendString(entry.getKey());
+            packet.appendString(entry.getValue().apply(this));
+        }
+    }
+
+
+    public void serializeWiredExtraStuff(final OutgoingPacket packet) {
+
+    }
+
+    public MapExtraData getWiredData() {
+        return this.settings.wiredData;
     }
 }

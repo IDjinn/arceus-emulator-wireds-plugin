@@ -25,6 +25,16 @@ public class WiredSelector extends WiredItem {
         this.areas = new ArrayList<>(1);
     }
 
+    @Override
+    public int getInterface() {
+        return 0;
+    }
+
+    @Override
+    public int getMaxSelectionCount() {
+        return 0;
+    }
+
     public void filterEvent(final WiredEvent event) {
         this.filterItems(event);
         this.filterEntities(event);

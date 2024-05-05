@@ -1,50 +1,42 @@
 package org.emulator.wireds.boxes;
 
-import org.jetbrains.annotations.Nullable;
+import habbo.furniture.extra.data.MapExtraData;
+import org.emulator.wireds.boxes.util.WiredEntitySourceType;
+import org.emulator.wireds.boxes.util.WiredItemSourceType;
+import org.emulator.wireds.boxes.util.WiredSelectionType;
+import org.emulator.wireds.boxes.util.WiredVariableContextType;
 
-import java.util.HashMap;
+import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 
 @SuppressWarnings("PublicMethodNotExposedInInterface")
 public class WiredItemSettings {
-    private final Map<Integer, Integer> parameters;
     private final Set<Integer> selectedItems;
-    private @Nullable String data;
-    private WiredSelectionType selectionType;
+    public MapExtraData wiredData;
+    private EnumSet<WiredSelectionType> selectionTypes;
 
     private WiredItemSourceType wiredItemSourceType;
     private WiredEntitySourceType wiredEntitySourceType;
+    private WiredVariableContextType variableContextType;
 
     public WiredItemSettings() {
-        this.parameters = new HashMap<>();
+        this.wiredData = new MapExtraData();
         this.selectedItems = new HashSet<>();
-        this.selectionType = WiredSelectionType.None;
+        this.selectionTypes = EnumSet.of(WiredSelectionType.None);
 
         this.wiredItemSourceType = WiredItemSourceType.Selected;
         this.wiredEntitySourceType = WiredEntitySourceType.Trigger;
+        this.variableContextType = WiredVariableContextType.Stack;
     }
 
-    public Map<Integer, Integer> getParameters() {
-        return this.parameters;
+    public EnumSet<WiredSelectionType> getSelectionTypes() {
+        return this.selectionTypes;
     }
 
-    public @Nullable String getData() {
-        return this.data;
-    }
-
-    public void setData(final @Nullable String data) {
-        this.data = data;
-    }
-
-    public WiredSelectionType getSelectionType() {
-        return this.selectionType;
-    }
-
-    public void setSelectionType(final WiredSelectionType selectionType) {
-        this.selectionType = selectionType;
+    public void setSelectionTypes(final EnumSet<WiredSelectionType> selectionTypes) {
+        this.selectionTypes = selectionTypes;
     }
 
     public Set<Integer> getSelectedItems() {
@@ -62,5 +54,13 @@ public class WiredItemSettings {
     }
     public void setWiredEntitiesSourceType(final WiredEntitySourceType wiredEntitySourceType) {
         this.wiredEntitySourceType = wiredEntitySourceType;
+    }
+
+    public WiredVariableContextType getWiredVariableContextType() {
+        return this.variableContextType;
+    }
+
+    public MapExtraData getWiredData() {
+        return this.wiredData;
     }
 }

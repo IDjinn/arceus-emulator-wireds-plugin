@@ -7,8 +7,8 @@ import core.pipeline.IPipeline;
 import core.pipeline.IPipelineContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.emulator.wireds.boxes.util.WiredEvent;
 import org.emulator.wireds.boxes.conditions.LogicalType;
+import org.emulator.wireds.boxes.util.WiredEvent;
 
 import java.util.Map;
 import java.util.Optional;
@@ -74,6 +74,7 @@ public class WiredExecutionPipeline extends DefaultPipeline<WiredEvent> implemen
 
     @Override
     public Optional<IPipelineContext<WiredEvent>> execute(final WiredEvent event) {
+        // TODO: IF TRIGGER IS EVALUATION AT LEAST 500MS STOP EVERYTHING
         if (this.executingStacks.containsKey(event.hashCode())) {
             logger.trace("wireds is already executing: {} {}",
                     event.getTriggers().getFirst().getClass().getSimpleName(),

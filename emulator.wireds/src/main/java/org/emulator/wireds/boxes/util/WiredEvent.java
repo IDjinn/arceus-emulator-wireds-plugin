@@ -4,8 +4,7 @@ import core.events.IEvent;
 import core.pipeline.PipelineEvent;
 import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.entities.IRoomEntity;
-import org.emulator.wireds.boxes.WiredEntitySourceType;
-import org.emulator.wireds.boxes.WiredItemSourceType;
+import habbo.variables.IVariable;
 import org.emulator.wireds.boxes.conditions.WiredCondition;
 import org.emulator.wireds.boxes.effects.WiredEffect;
 import org.emulator.wireds.boxes.selectors.WiredSelector;
@@ -28,6 +27,7 @@ public class WiredEvent extends PipelineEvent {
 
     private final Map<WiredItemSourceType, List<IRoomItem>> items;
     private final Map<WiredEntitySourceType, List<IRoomEntity>> entities;
+    private final Map<WiredVariableContextType, List<IVariable>> variables;
 
     public WiredEvent(IEvent triggerEvent, Position triggerPosition, int hash) {
         this.triggerEvent = triggerEvent;
@@ -39,13 +39,18 @@ public class WiredEvent extends PipelineEvent {
         this.effects = new LinkedList<>();
         this.items = new HashMap<>();
         this.entities = new HashMap<>();
-        
+        this.variables = new HashMap<>();
+
         for (final var sourceType : WiredItemSourceType.values()) {
             this.items.put(sourceType, new LinkedList<>());
         }
-        
+
         for (final var sourceType : WiredEntitySourceType.values()) {
             this.entities.put(sourceType, new LinkedList<>());
+        }
+
+        for (final var sourceType : WiredVariableContextType.values()) {
+            this.variables.put(sourceType, new LinkedList<>());
         }
     }
 
@@ -92,8 +97,8 @@ public class WiredEvent extends PipelineEvent {
     public Position getTriggerPosition() {
         return this.triggerPosition;
     }
-    
-    public WiredEvent addEntity(WiredEntitySourceType sourceType, IRoomEntity entity){
+
+    public WiredEvent addEntity(WiredEntitySourceType sourceType, IRoomEntity entity) {
         this.entities.get(sourceType).add(entity);
         return this;
     }
@@ -103,12 +108,12 @@ public class WiredEvent extends PipelineEvent {
         return this;
     }
 
-    public WiredEvent addEntities(WiredEntitySourceType sourceType, List<? extends IRoomEntity> entity){
+    public WiredEvent addEntities(WiredEntitySourceType sourceType, List<? extends IRoomEntity> entity) {
         this.entities.get(sourceType).addAll(entity);
         return this;
     }
-    
-    public WiredEvent addItem(WiredItemSourceType sourceType, IRoomItem item){
+
+    public WiredEvent addItem(WiredItemSourceType sourceType, IRoomItem item) {
         this.items.get(sourceType).add(item);
         return this;
     }
@@ -117,18 +122,37 @@ public class WiredEvent extends PipelineEvent {
         this.items.get(sourceType).remove(item);
         return this;
     }
-    
-    public WiredEvent addItems(WiredItemSourceType sourceType, List<? extends IRoomItem> item){
+
+    public WiredEvent addItems(WiredItemSourceType sourceType, List<? extends IRoomItem> item) {
         this.items.get(sourceType).addAll(item);
         return this;
     }
-    
+
+    public WiredEvent addVariable(WiredVariableContextType sourceType, IVariable variable) {
+        this.variables.get(sourceType).add(variable);
+        return this;
+    }
+
+    public WiredEvent removeVariable(WiredVariableContextType sourceType, IVariable variable) {
+        this.variables.get(sourceType).remove(variable);
+        return this;
+    }
+
+    public WiredEvent addVariables(WiredVariableContextType sourceType, List<? extends IVariable> variable) {
+        this.variables.get(sourceType).addAll(variable);
+        return this;
+    }
+
     public Map<WiredItemSourceType, List<IRoomItem>> getItems() {
         return this.items;
     }
-    
+
     public Map<WiredEntitySourceType, List<IRoomEntity>> getEntities() {
         return this.entities;
+    }
+
+    public Map<WiredVariableContextType, List<IVariable>> getVariables() {
+        return this.variables;
     }
 
 

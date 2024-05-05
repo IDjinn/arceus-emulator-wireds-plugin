@@ -7,6 +7,7 @@ import com.google.inject.Singleton;
 import core.plugins.IPlugin;
 import habbo.rooms.components.objects.items.IRoomItemFactory;
 import org.apache.maven.artifact.versioning.ComparableVersion;
+import org.emulator.wireds.boxes.effects.WiredEffectMessage;
 import org.emulator.wireds.boxes.selectors.WiredSelectorFilterFurniture;
 import org.emulator.wireds.boxes.triggers.WiredTriggerEntitySayKeyword;
 
@@ -54,6 +55,10 @@ public class WiredPlugin extends AbstractModule implements IPlugin {
         this.roomItemFactory.registerInteraction(
                 WiredSelectorFilterFurniture.InteractionName,
                 WiredSelectorFilterFurniture.class
+        );
+        this.roomItemFactory.registerInteraction(
+                WiredEffectMessage.InteractionName,
+                WiredEffectMessage.class
         );
     }
 
