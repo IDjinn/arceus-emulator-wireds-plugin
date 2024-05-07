@@ -6,12 +6,12 @@ import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.components.objects.items.floor.AdvancedFloorItem;
-import habbo.variables.IVariable;
 import networking.packets.OutgoingPacket;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredItemSourceType;
 import org.emulator.wireds.boxes.util.WiredSelectionType;
 import org.emulator.wireds.boxes.util.WiredVariableContextType;
+import org.emulator.wireds.boxes.variables.WiredVariable;
 import org.emulator.wireds.component.WiredExecutionPipeline;
 import org.emulator.wireds.component.WiredManager;
 import org.jetbrains.annotations.NotNull;
@@ -31,11 +31,10 @@ public abstract class WiredItem extends AdvancedFloorItem {
             this.put("this.position.z", wiredItem -> String.valueOf(wiredItem.getPosition().getZ()));
         }
     };
-            
-    
-    private final WiredItemSettings settings;
+
+
+    private WiredItemSettings settings;
     private final Map<Integer, IRoomItem> selectedItems;
-    private final Map<String, IVariable> contextVariables;
     
     
     protected boolean isFlashing;
@@ -46,7 +45,6 @@ public abstract class WiredItem extends AdvancedFloorItem {
         this.settings = new WiredItemSettings();
         this.selectedItems = new HashMap<>();
         this.executionPipeline = Objects.requireNonNull(room.getCustomComponent(WiredManager.class)).getExecutionPipeline();
-        this.contextVariables = new HashMap<>();
     }
 
     @Override
@@ -119,10 +117,16 @@ public abstract class WiredItem extends AdvancedFloorItem {
 
     public abstract int getInterface();
 
-    public abstract int getMaxSelectionCount();
+    public int getMaxSelectionCount() {
+        return 0;
+    }
 
-    public Map<String, IVariable> getContextVariables() {
-        return this.contextVariables;
+    public Map<String, WiredVariable> getInputContextVariables() {
+        return this.settings.getInputContextVariables();
+    }
+
+    public Map<String, WiredVariable> getOutputContextVariables() {
+        return this.settings.getOutputContextVariables();
     }
 
     public WiredVariableContextType getWiredVariableContextType() {
@@ -132,8 +136,8 @@ public abstract class WiredItem extends AdvancedFloorItem {
     public void serializeCommonVariables(final OutgoingPacket packet) {
         packet.appendInt(COMMON_WIRED_VARIABLES.size());
         for (final Map.Entry<String, Function<WiredItem, String>> entry : COMMON_WIRED_VARIABLES.entrySet()) {
-            packet.appendString(entry.getKey());
-            packet.appendString(entry.getValue().apply(this));
+            final var variable = new WiredVariable(WiredVariableContextType.Stack, entry.getKey(), entry.getValue().apply(this));
+            variable.serialize(packet);
         }
     }
 
@@ -144,5 +148,15 @@ public abstract class WiredItem extends AdvancedFloorItem {
 
     public MapExtraData getWiredData() {
         return this.settings.wiredData;
+    }
+
+    public void setSettings(final WiredItemSettings settings) {
+        this.settings = settings;
+        this.onRoomLoaded();
+        this.onWiredSettingsChanged();
+    }
+
+    public void onWiredSettingsChanged() {
+
     }
 }

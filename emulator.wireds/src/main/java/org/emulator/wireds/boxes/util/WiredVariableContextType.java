@@ -37,4 +37,8 @@ public enum WiredVariableContextType {
     public String getType() {
         return type;
     }
+
+    public @Nullable String getKey() {
+        return key;
+    }
 }

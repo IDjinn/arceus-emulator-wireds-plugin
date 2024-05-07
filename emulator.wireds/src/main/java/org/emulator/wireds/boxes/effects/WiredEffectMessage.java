@@ -3,8 +3,9 @@ package org.emulator.wireds.boxes.effects;
 import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItemData;
-import habbo.variables.Variable;
 import org.emulator.wireds.boxes.util.WiredEvent;
+import org.emulator.wireds.boxes.util.WiredVariableContextType;
+import org.emulator.wireds.boxes.variables.WiredVariable;
 
 public class WiredEffectMessage extends WiredEffect {
     public static final String InteractionName = "wf_act_show_message";
@@ -12,7 +13,8 @@ public class WiredEffectMessage extends WiredEffect {
     public WiredEffectMessage(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
 
-        this.getContextVariables().put("this.wired.message.text", new Variable(
+        this.getInputContextVariables().put("this.wired.message.text", new WiredVariable(
+                WiredVariableContextType.Stack,
                 "this.wired.message.text",
                 "This is a test message"
         ));

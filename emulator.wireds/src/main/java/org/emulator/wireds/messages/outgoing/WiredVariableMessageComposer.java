@@ -1,13 +1,11 @@
 package org.emulator.wireds.messages.outgoing;
 
 import networking.packets.OutgoingPacket;
-import org.emulator.wireds.boxes.variables.WiredVariable;
-import org.emulator.wireds.messages.outgoing.helpers.SerializeItems;
+import org.emulator.wireds.boxes.variables.WiredVariableItem;
 
 public class WiredVariableMessageComposer extends OutgoingPacket {
-    public WiredVariableMessageComposer(final WiredVariable wiredVariable) {
+    public WiredVariableMessageComposer(final WiredVariableItem wiredVariableItem) {
         super(123123);
 
-        SerializeItems.serialize(this, wiredVariable);
     }
 }

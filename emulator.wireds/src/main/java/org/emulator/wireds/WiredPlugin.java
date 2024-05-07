@@ -6,10 +6,13 @@ import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import core.plugins.IPlugin;
 import habbo.rooms.components.objects.items.IRoomItemFactory;
+import networking.packets.IPacketManager;
 import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.emulator.wireds.boxes.effects.WiredEffectMessage;
 import org.emulator.wireds.boxes.selectors.WiredSelectorFilterFurniture;
 import org.emulator.wireds.boxes.triggers.WiredTriggerEntitySayKeyword;
+import org.emulator.wireds.messages.incoming.WiredEffectSaveEvent;
+import org.emulator.wireds.messages.incoming.WiredTriggerSaveEvent;
 
 @Singleton
 public class WiredPlugin extends AbstractModule implements IPlugin {
@@ -25,6 +28,9 @@ public class WiredPlugin extends AbstractModule implements IPlugin {
 
     @Inject
     private IRoomItemFactory roomItemFactory;
+
+    @Inject
+    private IPacketManager packetManager;
 
     @Override
     public String getName() {
@@ -48,6 +54,9 @@ public class WiredPlugin extends AbstractModule implements IPlugin {
 
     @Override
     public void init() {
+        this.packetManager.registerIncoming(new WiredTriggerSaveEvent());
+        this.packetManager.registerIncoming(new WiredEffectSaveEvent());
+        
         this.roomItemFactory.registerInteraction(
                 WiredTriggerEntitySayKeyword.InteractionName,
                 WiredTriggerEntitySayKeyword.class

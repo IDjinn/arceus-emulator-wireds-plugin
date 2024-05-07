@@ -20,10 +20,14 @@ public final class WiredItemWriter {
         // VARIABLES
         {
             wiredItem.serializeCommonVariables(packet);
-            packet.appendInt(wiredItem.getContextVariables().size());
-            for (final var value : wiredItem.getContextVariables().values()) {
-                packet.appendString(value.getKey());
-                packet.appendString(value.getValue());
+            packet.appendInt(wiredItem.getInputContextVariables().size());
+            for (final var variable : wiredItem.getInputContextVariables().values()) {
+                variable.serialize(packet);
+            }
+
+            packet.appendInt(wiredItem.getOutputContextVariables().size());
+            for (final var variable : wiredItem.getOutputContextVariables().values()) {
+                variable.serialize(packet);
             }
         }
 

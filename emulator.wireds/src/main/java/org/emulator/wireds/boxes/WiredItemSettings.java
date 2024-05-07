@@ -5,10 +5,9 @@ import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredItemSourceType;
 import org.emulator.wireds.boxes.util.WiredSelectionType;
 import org.emulator.wireds.boxes.util.WiredVariableContextType;
+import org.emulator.wireds.boxes.variables.WiredVariable;
 
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @SuppressWarnings("PublicMethodNotExposedInInterface")
@@ -20,6 +19,8 @@ public class WiredItemSettings {
     private WiredItemSourceType wiredItemSourceType;
     private WiredEntitySourceType wiredEntitySourceType;
     private WiredVariableContextType variableContextType;
+    private final Map<String, WiredVariable> inputContextVariables;
+    private final Map<String, WiredVariable> outputContextVariables;
 
     public WiredItemSettings() {
         this.wiredData = new MapExtraData();
@@ -29,6 +30,8 @@ public class WiredItemSettings {
         this.wiredItemSourceType = WiredItemSourceType.Selected;
         this.wiredEntitySourceType = WiredEntitySourceType.Trigger;
         this.variableContextType = WiredVariableContextType.Stack;
+        this.inputContextVariables = new HashMap<>();
+        this.outputContextVariables = new HashMap<>();
     }
 
     public EnumSet<WiredSelectionType> getSelectionTypes() {
@@ -62,5 +65,17 @@ public class WiredItemSettings {
 
     public MapExtraData getWiredData() {
         return this.wiredData;
+    }
+
+    public void setWiredData(final MapExtraData wiredData) {
+        this.wiredData = wiredData;
+    }
+
+    public Map<String, WiredVariable> getInputContextVariables() {
+        return inputContextVariables;
+    }
+
+    public Map<String, WiredVariable> getOutputContextVariables() {
+        return outputContextVariables;
     }
 }
