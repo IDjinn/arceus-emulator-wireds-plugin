@@ -22,6 +22,6 @@ public enum WiredItemSourceType {
     }
 
     public int getType() {
-        return type;
+        return this.type;
     }
 }

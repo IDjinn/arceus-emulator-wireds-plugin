@@ -40,11 +40,11 @@ public class WiredVariable extends Variable implements IVariable {
     }
 
     public WiredVariableContextType getContextType() {
-        return contextType;
+        return this.contextType;
     }
 
     public String getDefaultValue() {
-        return defaultValue;
+        return this.defaultValue;
     }
 
     public void setDefaultValue(final String defaultValue) {
@@ -52,7 +52,7 @@ public class WiredVariable extends Variable implements IVariable {
     }
 
     public String getAlias() {
-        return alias;
+        return this.alias;
     }
 
     public void setAlias(final String alias) {

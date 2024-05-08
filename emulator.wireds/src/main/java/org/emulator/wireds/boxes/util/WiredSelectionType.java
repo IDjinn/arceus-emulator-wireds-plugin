@@ -36,6 +36,6 @@ public enum WiredSelectionType {
     }
 
     public int getType() {
-        return type;
+        return this.type;
     }
 }

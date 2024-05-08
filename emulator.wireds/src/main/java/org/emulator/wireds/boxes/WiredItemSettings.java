@@ -72,10 +72,10 @@ public class WiredItemSettings {
     }
 
     public Map<String, WiredVariable> getInputContextVariables() {
-        return inputContextVariables;
+        return this.inputContextVariables;
     }
 
     public Map<String, WiredVariable> getOutputContextVariables() {
-        return outputContextVariables;
+        return this.outputContextVariables;
     }
 }

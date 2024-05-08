@@ -20,6 +20,6 @@ public enum WiredEntitySourceType {
     }
 
     public int getType() {
-        return type;
+        return this.type;
     }
 }

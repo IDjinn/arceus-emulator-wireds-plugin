@@ -35,10 +35,10 @@ public enum WiredVariableContextType {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public @Nullable String getKey() {
-        return key;
+        return this.key;
     }
 }

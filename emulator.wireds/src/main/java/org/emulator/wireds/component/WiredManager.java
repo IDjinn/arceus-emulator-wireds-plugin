@@ -110,7 +110,7 @@ public class WiredManager implements IRoomComponent {
     }
 
     public WiredExecutionPipeline getExecutionPipeline() {
-        return executionPipeline;
+        return this.executionPipeline;
     }
 
     public List<WiredTrigger> getTriggersAt(Position position) {
