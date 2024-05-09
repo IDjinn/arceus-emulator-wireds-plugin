@@ -18,7 +18,7 @@ public abstract class WiredVariableItem extends WiredItem {
         if (!(entity instanceof IPlayerEntity player))
             return;
 
-        if (!this.getRoom().getRightsManager().hasRights(player.getHabbo()))
+        if (!player.hasRights())
             return;
 
         this.setFlashing(true);

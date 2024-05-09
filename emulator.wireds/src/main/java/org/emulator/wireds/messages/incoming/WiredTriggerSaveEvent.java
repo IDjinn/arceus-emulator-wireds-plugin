@@ -20,7 +20,7 @@ public class WiredTriggerSaveEvent extends IncomingEvent {
     public void parse(final IIncomingPacket packet, final IClient client) {
         if (client.getHabbo().getRoom() == null) return;
 
-        if (!client.getHabbo().getRoom().getRightsManager().hasRights(client.getHabbo())) return;
+        if (!client.getHabbo().getPlayerEntity().hasRights()) return;
 
         final int triggerId = packet.readInt();
         final IFloorItem item = client.getHabbo().getRoom().getObjectManager().getFloorItem(triggerId);

@@ -7,7 +7,7 @@ import networking.packets.OutgoingPacket;
 import org.emulator.wireds.boxes.util.WiredVariableContextType;
 import org.jetbrains.annotations.Nullable;
 
-public class WiredVariable extends Variable implements IVariable {
+public class WiredVariable extends Variable<String> implements IVariable<String> {
     private WiredVariableContextType contextType;
     private @Nullable String alias;
     private @Nullable String defaultValue;
