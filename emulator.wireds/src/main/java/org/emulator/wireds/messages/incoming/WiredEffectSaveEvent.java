@@ -28,6 +28,7 @@ public class WiredEffectSaveEvent extends IncomingEvent {
 
         final var settings = WiredItemReader.readSettings(client, packet);
         effect.setSettings(settings);
+        effect.setNeedSaveSettings(true);
         client.sendMessage(new WiredSavedComposer());
     }
 }

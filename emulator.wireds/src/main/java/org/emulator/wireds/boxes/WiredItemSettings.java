@@ -6,6 +6,7 @@ import org.emulator.wireds.boxes.util.WiredItemSourceType;
 import org.emulator.wireds.boxes.util.WiredSelectionType;
 import org.emulator.wireds.boxes.util.WiredVariableContextType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
+import utils.gson.GsonHelper;
 
 import java.util.*;
 
@@ -77,5 +78,21 @@ public class WiredItemSettings {
 
     public Map<String, WiredVariable> getOutputContextVariables() {
         return this.outputContextVariables;
+    }
+
+    public static WiredItemSettings fromJson(final String json) {
+        try {
+            return GsonHelper.getGson().fromJson(json, WiredItemSettings.class);
+        } catch (Exception e) {
+            return new WiredItemSettings();
+        }
+    }
+
+    public String toJson() {
+        try {
+            return GsonHelper.getGson().toJson(this);
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

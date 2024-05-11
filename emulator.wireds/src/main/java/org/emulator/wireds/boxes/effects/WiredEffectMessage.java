@@ -19,8 +19,7 @@ public class WiredEffectMessage extends WiredEffect {
     public boolean evaluate(final WiredEvent event) {
         final var message = event.handleVariables(this.getOutputContextVariables().get("this.wired.message" +
                 ".text").getValue());
-        final var entities = event.getEntities(WiredEntitySourceType.Trigger);
-        for (final var entity : entities) {
+        for (final var entity : event.getEntities(WiredEntitySourceType.Trigger)) {
             if (entity instanceof IPlayerEntity playerEntity) {
                 playerEntity.getClient().sendMessage(new RoomUserWhisperMessageComposer(entity, message));
             }

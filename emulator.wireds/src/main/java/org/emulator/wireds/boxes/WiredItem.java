@@ -35,11 +35,12 @@ public abstract class WiredItem extends AdvancedFloorItem {
     
     
     protected boolean isFlashing;
+    protected boolean needSaveSettings;
     protected WiredExecutionPipeline executionPipeline;
 
     public WiredItem(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
-        this.settings = new WiredItemSettings();
+        this.settings = WiredItemSettings.fromJson(itemData.getWiredData());
         this.selectedItems = new HashMap<>();
         this.executionPipeline = Objects.requireNonNull(room.getCustomComponent(WiredManager.class)).getExecutionPipeline();
     }
@@ -165,6 +166,13 @@ public abstract class WiredItem extends AdvancedFloorItem {
     }
 
     public void onWiredSettingsChanged() {
+    }
 
+    public boolean isNeedSaveSettings() {
+        return this.needSaveSettings;
+    }
+
+    public void setNeedSaveSettings(final boolean needSaveSettings) {
+        this.needSaveSettings = needSaveSettings;
     }
 }
