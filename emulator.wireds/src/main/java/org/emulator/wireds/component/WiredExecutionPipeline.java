@@ -1,6 +1,7 @@
 package org.emulator.wireds.component;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import core.concurrency.IThreadManager;
 import core.pipeline.DefaultPipeline;
 import core.pipeline.IPipeline;
@@ -20,6 +21,7 @@ public class WiredExecutionPipeline extends DefaultPipeline<WiredEvent> implemen
     private final WiredManager wiredManager;
     private final Map<Integer, Future<Optional<IPipelineContext<WiredEvent>>>> executingStacks;
     private @Inject IThreadManager threadManager;
+    private @Inject Injector injector;
 
     public WiredExecutionPipeline(WiredManager wiredManager) {
         this.wiredManager = wiredManager;
@@ -66,6 +68,8 @@ public class WiredExecutionPipeline extends DefaultPipeline<WiredEvent> implemen
         });
         this.addStep("handle-effects", ctx -> {
             for (final var effect : ctx.getEvent().getEffects()) {
+                ctx.getEvent().addVariables(effect.getWiredVariableContextType(),
+                        effect.getCommonVariables());
                 effect.evaluate(ctx.getEvent());
             }
             return ctx;
@@ -84,6 +88,7 @@ public class WiredExecutionPipeline extends DefaultPipeline<WiredEvent> implemen
         }
 
         try {
+            this.injector.injectMembers(event);
             final var future = this.threadManager.getSoftwareThreadExecutor().submit(() -> super.execute(event));
             this.executingStacks.put(event.hashCode(), future);
             return future.get();

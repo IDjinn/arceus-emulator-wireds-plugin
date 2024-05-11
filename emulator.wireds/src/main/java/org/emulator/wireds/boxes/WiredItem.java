@@ -16,10 +16,7 @@ import org.emulator.wireds.component.WiredExecutionPipeline;
 import org.emulator.wireds.component.WiredManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 
 @SuppressWarnings("PublicMethodNotExposedInInterface")
@@ -136,11 +133,22 @@ public abstract class WiredItem extends AdvancedFloorItem {
     public void serializeCommonVariables(final OutgoingPacket packet) {
         packet.appendInt(COMMON_WIRED_VARIABLES.size());
         for (final Map.Entry<String, Function<WiredItem, String>> entry : COMMON_WIRED_VARIABLES.entrySet()) {
-            final var variable = new WiredVariable(WiredVariableContextType.Stack, entry.getKey(), entry.getValue().apply(this));
+            final var variable = new WiredVariable(entry.getKey(), entry.getValue().apply(this), "", "",
+                    WiredVariableContextType.Stack);
             variable.serialize(packet);
         }
     }
 
+
+    public List<WiredVariable> getCommonVariables() {
+        final var variables = new ArrayList<WiredVariable>();
+        for (final Map.Entry<String, Function<WiredItem, String>> entry : COMMON_WIRED_VARIABLES.entrySet()) {
+            final var variable = new WiredVariable(entry.getKey(), entry.getValue().apply(this), "", "",
+                    WiredVariableContextType.Stack);
+            variables.add(variable);
+        }
+        return variables;
+    }
 
     public void serializeWiredExtraStuff(final OutgoingPacket packet) {
 

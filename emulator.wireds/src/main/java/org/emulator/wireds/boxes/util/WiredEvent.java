@@ -1,10 +1,12 @@
 package org.emulator.wireds.boxes.util;
 
+import com.google.inject.Inject;
 import core.events.IEvent;
 import core.pipeline.PipelineEvent;
 import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.entities.IRoomEntity;
 import habbo.variables.IVariable;
+import habbo.variables.IVariableMessageFactory;
 import org.emulator.wireds.boxes.conditions.WiredCondition;
 import org.emulator.wireds.boxes.effects.WiredEffect;
 import org.emulator.wireds.boxes.selectors.WiredSelector;
@@ -17,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 public class WiredEvent extends PipelineEvent {
+    @Inject
+    private IVariableMessageFactory variableMessageFactory;
+    
     private final IEvent triggerEvent;
     private final List<WiredTrigger> triggers;
     private final List<WiredSelector> selectors;
@@ -151,6 +156,10 @@ public class WiredEvent extends PipelineEvent {
         return this.entities;
     }
 
+    public List<IRoomEntity> getEntities(WiredEntitySourceType entitySourceType) {
+        return this.entities.get(entitySourceType);
+    }
+
     public Map<WiredVariableContextType, List<IVariable>> getVariables() {
         return this.variables;
     }
@@ -163,5 +172,9 @@ public class WiredEvent extends PipelineEvent {
 
     public void addEffects(final List<WiredEffect> effects) {
         this.effects.addAll(effects);
+    }
+
+    public String handleVariables(final String template) {
+        return this.variableMessageFactory.format(template, this.variables.get(WiredVariableContextType.Stack));
     }
 }
