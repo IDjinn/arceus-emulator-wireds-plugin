@@ -10,7 +10,7 @@ import networking.packets.OutgoingPacket;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredItemSourceType;
 import org.emulator.wireds.boxes.util.WiredSelectionType;
-import org.emulator.wireds.boxes.util.WiredVariableContextType;
+import org.emulator.wireds.boxes.util.WiredVariableType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
 import org.emulator.wireds.component.WiredExecutionPipeline;
 import org.emulator.wireds.component.WiredManager;
@@ -127,7 +127,7 @@ public abstract class WiredItem extends AdvancedFloorItem {
         return this.settings.getOutputContextVariables();
     }
 
-    public WiredVariableContextType getWiredVariableContextType() {
+    public WiredVariableType getWiredVariableContextType() {
         return this.settings.getWiredVariableContextType();
     }
 
@@ -135,7 +135,7 @@ public abstract class WiredItem extends AdvancedFloorItem {
         packet.appendInt(COMMON_WIRED_VARIABLES.size());
         for (final Map.Entry<String, Function<WiredItem, String>> entry : COMMON_WIRED_VARIABLES.entrySet()) {
             final var variable = new WiredVariable(entry.getKey(), entry.getValue().apply(this), "", "",
-                    WiredVariableContextType.Stack);
+                    WiredVariableType.Stack);
             variable.serialize(packet);
         }
     }
@@ -145,7 +145,7 @@ public abstract class WiredItem extends AdvancedFloorItem {
         final var variables = new ArrayList<WiredVariable>();
         for (final Map.Entry<String, Function<WiredItem, String>> entry : COMMON_WIRED_VARIABLES.entrySet()) {
             final var variable = new WiredVariable(entry.getKey(), entry.getValue().apply(this), "", "",
-                    WiredVariableContextType.Stack);
+                    WiredVariableType.Stack);
             variables.add(variable);
         }
         return variables;

@@ -32,7 +32,7 @@ public class WiredEvent extends PipelineEvent {
 
     private final Map<WiredItemSourceType, List<IRoomItem>> items;
     private final Map<WiredEntitySourceType, List<IRoomEntity>> entities;
-    private final Map<WiredVariableContextType, List<IVariable>> variables;
+    private final Map<WiredVariableType, List<IVariable>> variables;
 
     public WiredEvent(IEvent triggerEvent, Position triggerPosition, int hash) {
         this.triggerEvent = triggerEvent;
@@ -54,7 +54,7 @@ public class WiredEvent extends PipelineEvent {
             this.entities.put(sourceType, new LinkedList<>());
         }
 
-        for (final var sourceType : WiredVariableContextType.values()) {
+        for (final var sourceType : WiredVariableType.values()) {
             this.variables.put(sourceType, new LinkedList<>());
         }
     }
@@ -133,17 +133,17 @@ public class WiredEvent extends PipelineEvent {
         return this;
     }
 
-    public WiredEvent addVariable(WiredVariableContextType sourceType, IVariable variable) {
+    public WiredEvent addVariable(WiredVariableType sourceType, IVariable variable) {
         this.variables.get(sourceType).add(variable);
         return this;
     }
 
-    public WiredEvent removeVariable(WiredVariableContextType sourceType, IVariable variable) {
+    public WiredEvent removeVariable(WiredVariableType sourceType, IVariable variable) {
         this.variables.get(sourceType).remove(variable);
         return this;
     }
 
-    public WiredEvent addVariables(WiredVariableContextType sourceType, List<? extends IVariable> variable) {
+    public WiredEvent addVariables(WiredVariableType sourceType, List<? extends IVariable> variable) {
         this.variables.get(sourceType).addAll(variable);
         return this;
     }
@@ -160,7 +160,7 @@ public class WiredEvent extends PipelineEvent {
         return this.entities.get(entitySourceType);
     }
 
-    public Map<WiredVariableContextType, List<IVariable>> getVariables() {
+    public Map<WiredVariableType, List<IVariable>> getVariables() {
         return this.variables;
     }
 
@@ -175,6 +175,6 @@ public class WiredEvent extends PipelineEvent {
     }
 
     public String handleVariables(final String template) {
-        return this.variableMessageFactory.format(template, this.variables.get(WiredVariableContextType.Stack));
+        return this.variableMessageFactory.format(template, this.variables.get(WiredVariableType.Stack));
     }
 }
