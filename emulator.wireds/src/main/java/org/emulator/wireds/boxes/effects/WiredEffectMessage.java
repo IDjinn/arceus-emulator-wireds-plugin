@@ -6,7 +6,6 @@ import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.entities.IPlayerEntity;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredEvent;
-import packets.outgoing.rooms.entities.chat.RoomUserTalkMessageComposer;
 import packets.outgoing.rooms.entities.chat.RoomUserWhisperMessageComposer;
 
 public class WiredEffectMessage extends WiredEffect {
@@ -14,7 +13,6 @@ public class WiredEffectMessage extends WiredEffect {
 
     private static final String WIRED_MESSAGE_PARAM = "this.wired.message.text";
     private static final String SHOUT_TYPE_PARAM = "this.wired.message.shout.type";
-    private static final String TRIGGER_SHOUT_TYPE_PARAM = "this.trigger.shout.type";
 
     public WiredEffectMessage(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
@@ -25,7 +23,6 @@ public class WiredEffectMessage extends WiredEffect {
         if (type.equals(WiredShoutType.NONE)) return false;
 
         final var message = event.handleVariables(this.getInputContextVariables().get(WIRED_MESSAGE_PARAM).getValue());
-        final var triggerShoutType = WiredShoutType.fromString(this.getInputContextVariables().get(TRIGGER_SHOUT_TYPE_PARAM).getValue());
         for (final var entity : event.getEntities(WiredEntitySourceType.Trigger)) {
             if (entity instanceof IPlayerEntity playerEntity) {
                 switch (type) {
@@ -39,23 +36,6 @@ public class WiredEffectMessage extends WiredEffect {
                         this.getRoom().getEntityManager().shout(entity, message, 0);
                         break;
                 }
-            }
-        }
-
-        final var triggerEntity = event.getEntities().get(WiredEntitySourceType.Trigger).stream().findFirst();
-        if (triggerEntity.isPresent()) {
-            final var entity = triggerEntity.get();
-            switch (triggerShoutType) {
-                case WHISPER:
-                    if (entity instanceof IPlayerEntity playerEntity)
-                        playerEntity.getClient().sendMessage(new RoomUserWhisperMessageComposer(entity, message, 0, 0));
-                    break;
-                case TALK:
-                    this.getRoom().broadcastMessage(new RoomUserTalkMessageComposer(entity, message, 0, 0));
-                    break;
-                case SHOUT:
-                    this.getRoom().broadcastMessage(new RoomUserTalkMessageComposer(entity, message, 0, 0));
-                    break;
             }
         }
         

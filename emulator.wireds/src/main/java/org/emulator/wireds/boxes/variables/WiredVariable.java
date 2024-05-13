@@ -38,7 +38,7 @@ public class WiredVariable extends Variable implements IVariable {
     public void serialize(final OutgoingPacket packet) {
         super.serialize(packet);
         packet.appendString(this.getContextType().getType());
-        packet.appendString(this.getContextType().getKey() != null ? this.getContextType().getKey() : "");
+        packet.appendString("");
         packet.appendString(this.getAlias() != null ? this.getAlias() : "");
         packet.appendString(this.getDefaultValue() != null ? this.getDefaultValue() : "");
     }

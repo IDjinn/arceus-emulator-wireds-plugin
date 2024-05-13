@@ -2,7 +2,7 @@ package org.emulator.wireds.component;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import core.events.IEvent;
+import core.events.Event;
 import habbo.rooms.IRoom;
 import habbo.rooms.IRoomComponent;
 import org.apache.logging.log4j.LogManager;
@@ -120,7 +120,7 @@ public class WiredManager implements IRoomComponent {
         return this.triggers;
     }
 
-    public Map<Integer, WiredTrigger> getTriggersForEvent(IEvent event) {
+    public Map<Integer, WiredTrigger> getTriggersForEvent(Event event) {
         return this.triggers;
     }
 

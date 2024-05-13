@@ -1,7 +1,7 @@
 package org.emulator.wireds.boxes.util;
 
 import com.google.inject.Inject;
-import core.events.IEvent;
+import core.events.Event;
 import core.pipeline.PipelineEvent;
 import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.entities.IRoomEntity;
@@ -21,8 +21,8 @@ import java.util.Map;
 public class WiredEvent extends PipelineEvent {
     @Inject
     private IVariableMessageFactory variableMessageFactory;
-    
-    private final IEvent triggerEvent;
+
+    private final Event triggerEvent;
     private final List<WiredTrigger> triggers;
     private final List<WiredSelector> selectors;
     private final List<WiredCondition> conditions;
@@ -34,7 +34,7 @@ public class WiredEvent extends PipelineEvent {
     private final Map<WiredEntitySourceType, List<IRoomEntity>> entities;
     private final Map<WiredVariableType, List<IVariable>> variables;
 
-    public WiredEvent(IEvent triggerEvent, Position triggerPosition, int hash) {
+    public WiredEvent(Event triggerEvent, Position triggerPosition, int hash) {
         this.triggerEvent = triggerEvent;
         this.triggerPosition = triggerPosition;
         this.hash = hash;
@@ -59,7 +59,7 @@ public class WiredEvent extends PipelineEvent {
         }
     }
 
-    public IEvent getTriggerEvent() {
+    public Event getTriggerEvent() {
         return this.triggerEvent;
     }
 
