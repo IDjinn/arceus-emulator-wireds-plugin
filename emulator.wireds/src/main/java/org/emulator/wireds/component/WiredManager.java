@@ -2,22 +2,27 @@ package org.emulator.wireds.component;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import core.events.IEvent;
+import core.events.Event;
 import habbo.rooms.IRoom;
 import habbo.rooms.IRoomComponent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.emulator.wireds.boxes.WiredItem;
 import org.emulator.wireds.boxes.addons.WiredAddon;
 import org.emulator.wireds.boxes.conditions.WiredCondition;
 import org.emulator.wireds.boxes.effects.WiredEffect;
 import org.emulator.wireds.boxes.selectors.WiredSelector;
 import org.emulator.wireds.boxes.triggers.WiredTrigger;
+import storage.repositories.rooms.IRoomItemsRepository;
 import utils.pathfinder.Position;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class WiredManager implements IRoomComponent {
+    private static final Logger LOGGER = LogManager.getLogger();
     private final IRoom room;
     private final WiredExecutionPipeline executionPipeline;
     private final Map<Integer, WiredItem> wireds;
@@ -28,6 +33,11 @@ public class WiredManager implements IRoomComponent {
     private final Map<Integer, WiredSelector> selectors;
     @Inject
     private Injector injector;
+    private static final String UPDATE_WIRED_SQL = """
+            UPDATE  `items`
+            SET `wired_data` = ?
+            WHERE `id` = ?;
+            """;
 
     public WiredManager(IRoom room) {
         this.room = room;
@@ -64,6 +74,27 @@ public class WiredManager implements IRoomComponent {
     public void destroy() {
 
     }
+    @Inject
+    IRoomItemsRepository itemsRepository;
+
+    @Override
+    public void update() {
+        final var updated = new AtomicInteger(0);
+        this.itemsRepository.updateBatch(UPDATE_WIRED_SQL, statement -> {
+            for (final var wiredItem : this.wireds.values()) {
+                if (!wiredItem.isNeedSaveSettings()) continue;
+
+                statement.setString(1, wiredItem.getSettings().toJson());
+                statement.setInt(2, wiredItem.getId());
+                statement.addBatch();
+                wiredItem.setNeedSaveSettings(false);
+                updated.incrementAndGet();
+            }
+        }, result -> {
+        });
+
+        LOGGER.info("total of {} wireds updated in room {}", updated.get(), this.getRoom().getData().getId());
+    }
 
     public void registerWired(WiredItem wiredItem) {
         this.injector.injectMembers(wiredItem);
@@ -89,7 +120,7 @@ public class WiredManager implements IRoomComponent {
         return this.triggers;
     }
 
-    public Map<Integer, WiredTrigger> getTriggersForEvent(IEvent event) {
+    public Map<Integer, WiredTrigger> getTriggersForEvent(Event event) {
         return this.triggers;
     }
 

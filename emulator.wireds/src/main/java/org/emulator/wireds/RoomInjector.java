@@ -16,7 +16,7 @@ public class RoomInjector {
     @Inject
     private Injector injector;
 
-    @EventListener(priority = EventListenerPriority.Medium)
+    @EventListener(priority = EventListenerPriority.Medium, listenCancelled = true)
     public void onRoomPreLoaded(OnRoomPreLoaded onRoomPreLoaded) {
         final var wiredManager = new WiredManager(onRoomPreLoaded.room());
         this.injector.injectMembers(wiredManager);

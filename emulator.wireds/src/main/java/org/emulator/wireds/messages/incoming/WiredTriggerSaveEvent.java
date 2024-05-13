@@ -28,6 +28,7 @@ public class WiredTriggerSaveEvent extends IncomingEvent {
 
         final var settings = WiredItemReader.readSettings(client, packet);
         trigger.setSettings(settings);
+        trigger.setNeedSaveSettings(true);
         client.sendMessage(new WiredSavedComposer());
     }
 }

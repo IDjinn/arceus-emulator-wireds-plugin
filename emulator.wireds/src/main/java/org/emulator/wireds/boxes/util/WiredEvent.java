@@ -1,10 +1,12 @@
 package org.emulator.wireds.boxes.util;
 
-import core.events.IEvent;
+import com.google.inject.Inject;
+import core.events.Event;
 import core.pipeline.PipelineEvent;
 import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.entities.IRoomEntity;
 import habbo.variables.IVariable;
+import habbo.variables.IVariableMessageFactory;
 import org.emulator.wireds.boxes.conditions.WiredCondition;
 import org.emulator.wireds.boxes.effects.WiredEffect;
 import org.emulator.wireds.boxes.selectors.WiredSelector;
@@ -17,7 +19,10 @@ import java.util.List;
 import java.util.Map;
 
 public class WiredEvent extends PipelineEvent {
-    private final IEvent triggerEvent;
+    @Inject
+    private IVariableMessageFactory variableMessageFactory;
+
+    private final Event triggerEvent;
     private final List<WiredTrigger> triggers;
     private final List<WiredSelector> selectors;
     private final List<WiredCondition> conditions;
@@ -27,9 +32,9 @@ public class WiredEvent extends PipelineEvent {
 
     private final Map<WiredItemSourceType, List<IRoomItem>> items;
     private final Map<WiredEntitySourceType, List<IRoomEntity>> entities;
-    private final Map<WiredVariableContextType, List<IVariable>> variables;
+    private final Map<WiredVariableType, List<IVariable>> variables;
 
-    public WiredEvent(IEvent triggerEvent, Position triggerPosition, int hash) {
+    public WiredEvent(Event triggerEvent, Position triggerPosition, int hash) {
         this.triggerEvent = triggerEvent;
         this.triggerPosition = triggerPosition;
         this.hash = hash;
@@ -49,12 +54,12 @@ public class WiredEvent extends PipelineEvent {
             this.entities.put(sourceType, new LinkedList<>());
         }
 
-        for (final var sourceType : WiredVariableContextType.values()) {
+        for (final var sourceType : WiredVariableType.values()) {
             this.variables.put(sourceType, new LinkedList<>());
         }
     }
 
-    public IEvent getTriggerEvent() {
+    public Event getTriggerEvent() {
         return this.triggerEvent;
     }
 
@@ -128,17 +133,17 @@ public class WiredEvent extends PipelineEvent {
         return this;
     }
 
-    public WiredEvent addVariable(WiredVariableContextType sourceType, IVariable variable) {
+    public WiredEvent addVariable(WiredVariableType sourceType, IVariable variable) {
         this.variables.get(sourceType).add(variable);
         return this;
     }
 
-    public WiredEvent removeVariable(WiredVariableContextType sourceType, IVariable variable) {
+    public WiredEvent removeVariable(WiredVariableType sourceType, IVariable variable) {
         this.variables.get(sourceType).remove(variable);
         return this;
     }
 
-    public WiredEvent addVariables(WiredVariableContextType sourceType, List<? extends IVariable> variable) {
+    public WiredEvent addVariables(WiredVariableType sourceType, List<? extends IVariable> variable) {
         this.variables.get(sourceType).addAll(variable);
         return this;
     }
@@ -151,7 +156,11 @@ public class WiredEvent extends PipelineEvent {
         return this.entities;
     }
 
-    public Map<WiredVariableContextType, List<IVariable>> getVariables() {
+    public List<IRoomEntity> getEntities(WiredEntitySourceType entitySourceType) {
+        return this.entities.get(entitySourceType);
+    }
+
+    public Map<WiredVariableType, List<IVariable>> getVariables() {
         return this.variables;
     }
 
@@ -163,5 +172,9 @@ public class WiredEvent extends PipelineEvent {
 
     public void addEffects(final List<WiredEffect> effects) {
         this.effects.addAll(effects);
+    }
+
+    public String handleVariables(final String template) {
+        return this.variableMessageFactory.format(template, this.variables.get(WiredVariableType.Stack));
     }
 }

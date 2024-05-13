@@ -4,8 +4,9 @@ import habbo.furniture.extra.data.MapExtraData;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredItemSourceType;
 import org.emulator.wireds.boxes.util.WiredSelectionType;
-import org.emulator.wireds.boxes.util.WiredVariableContextType;
+import org.emulator.wireds.boxes.util.WiredVariableType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
+import utils.gson.GsonHelper;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ public class WiredItemSettings {
 
     private WiredItemSourceType wiredItemSourceType;
     private WiredEntitySourceType wiredEntitySourceType;
-    private WiredVariableContextType variableContextType;
+    private WiredVariableType variableContextType;
     private final Map<String, WiredVariable> inputContextVariables;
     private final Map<String, WiredVariable> outputContextVariables;
 
@@ -29,7 +30,7 @@ public class WiredItemSettings {
 
         this.wiredItemSourceType = WiredItemSourceType.Selected;
         this.wiredEntitySourceType = WiredEntitySourceType.Trigger;
-        this.variableContextType = WiredVariableContextType.Stack;
+        this.variableContextType = WiredVariableType.Stack;
         this.inputContextVariables = new HashMap<>();
         this.outputContextVariables = new HashMap<>();
     }
@@ -59,7 +60,7 @@ public class WiredItemSettings {
         this.wiredEntitySourceType = wiredEntitySourceType;
     }
 
-    public WiredVariableContextType getWiredVariableContextType() {
+    public WiredVariableType getWiredVariableContextType() {
         return this.variableContextType;
     }
 
@@ -77,5 +78,21 @@ public class WiredItemSettings {
 
     public Map<String, WiredVariable> getOutputContextVariables() {
         return this.outputContextVariables;
+    }
+
+    public static WiredItemSettings fromJson(final String json) {
+        try {
+            return GsonHelper.getGson().fromJson(json, WiredItemSettings.class);
+        } catch (Exception e) {
+            return new WiredItemSettings();
+        }
+    }
+
+    public String toJson() {
+        try {
+            return GsonHelper.getGson().toJson(this);
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

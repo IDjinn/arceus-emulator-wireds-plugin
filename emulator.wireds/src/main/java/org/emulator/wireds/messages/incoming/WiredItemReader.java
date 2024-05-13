@@ -6,7 +6,7 @@ import networking.packets.IIncomingPacket;
 import org.emulator.wireds.boxes.WiredItemSettings;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredItemSourceType;
-import org.emulator.wireds.boxes.util.WiredVariableContextType;
+import org.emulator.wireds.boxes.util.WiredVariableType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
 
 import java.util.ArrayList;
@@ -31,20 +31,25 @@ public class WiredItemReader {
         }
 
         settings.getSelectedItems().addAll(selectedObjects);
-        final int outputVariablesCount = packet.readInt();
-        final Map<String, WiredVariable> variables = new HashMap<>(outputVariablesCount);
-        for (int i = 0; i < outputVariablesCount; i++) {
-            final var variable = WiredVariable.fromPacket(packet);
-            variables.put(variable.getKey(), variable);
-        }
+        settings.getInputContextVariables().putAll(readWiredVariables(packet));
+        settings.getOutputContextVariables().putAll(readWiredVariables(packet));
 
-        settings.getOutputContextVariables().putAll(variables);
         final WiredItemSourceType itemSourceType = WiredItemSourceType.fromType(packet.readInt());
         final WiredEntitySourceType entitySourceType = WiredEntitySourceType.fromType(packet.readInt());
-        final WiredVariableContextType variableContextType = WiredVariableContextType.fromLabel(packet.readString());
+        final WiredVariableType variableContextType = WiredVariableType.fromLabel(packet.readString());
 
         settings.setWiredItemSourceType(itemSourceType);
         settings.setWiredEntitiesSourceType(entitySourceType);
         return settings;
+    }
+
+    private static Map<String, WiredVariable> readWiredVariables(final IIncomingPacket packet) {
+        final int variablesCount = packet.readInt();
+        final Map<String, WiredVariable> variables = new HashMap<>(variablesCount);
+        for (int i = 0; i < variablesCount; i++) {
+            final var variable = WiredVariable.fromPacket(packet);
+            variables.put(variable.getKey(), variable);
+        }
+        return variables;
     }
 }
