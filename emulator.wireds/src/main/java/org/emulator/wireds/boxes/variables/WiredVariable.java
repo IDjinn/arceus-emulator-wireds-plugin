@@ -7,12 +7,12 @@ import networking.packets.OutgoingPacket;
 import org.emulator.wireds.boxes.util.WiredVariableType;
 import org.jetbrains.annotations.Nullable;
 
-public class WiredVariable extends Variable implements IVariable {
+public class WiredVariable<T> extends Variable<T> implements IVariable<T> {
     private WiredVariableType contextType;
     private @Nullable String alias;
     private @Nullable String defaultValue;
 
-    public WiredVariable(final String key, final String value, final String alias, final String defaultValue,
+    public WiredVariable(final String key, final T value, final String alias, final String defaultValue,
                          final WiredVariableType wiredVariableType) {
         super(key, value);
         this.contextType = wiredVariableType;
@@ -21,7 +21,7 @@ public class WiredVariable extends Variable implements IVariable {
     }
 
     public WiredVariable(final WiredVariableType wiredVariableType, final String key,
-                         final String value) {
+                         final T value) {
         this(key, value, "", "", wiredVariableType);
     }
 

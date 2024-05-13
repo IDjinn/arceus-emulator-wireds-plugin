@@ -20,8 +20,8 @@ public class WiredItemSettings {
     private WiredItemSourceType wiredItemSourceType;
     private WiredEntitySourceType wiredEntitySourceType;
     private WiredVariableType variableContextType;
-    private final Map<String, WiredVariable> inputContextVariables;
-    private final Map<String, WiredVariable> outputContextVariables;
+    private final Map<String, WiredVariable<?>> inputContextVariables;
+    private final Map<String, WiredVariable<?>> outputContextVariables;
 
     public WiredItemSettings() {
         this.wiredData = new MapExtraData();
@@ -72,11 +72,11 @@ public class WiredItemSettings {
         this.wiredData = wiredData;
     }
 
-    public Map<String, WiredVariable> getInputContextVariables() {
+    public Map<String, WiredVariable<?>> getInputContextVariables() {
         return this.inputContextVariables;
     }
 
-    public Map<String, WiredVariable> getOutputContextVariables() {
+    public Map<String, WiredVariable<?>> getOutputContextVariables() {
         return this.outputContextVariables;
     }
 

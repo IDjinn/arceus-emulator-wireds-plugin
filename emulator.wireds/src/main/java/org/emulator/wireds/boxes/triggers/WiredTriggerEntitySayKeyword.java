@@ -11,6 +11,7 @@ import org.emulator.wireds.boxes.effects.WiredEffectMessage;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredEvent;
 import org.emulator.wireds.boxes.util.WiredSelectionType;
+import org.emulator.wireds.boxes.variables.WiredVariable;
 import org.jetbrains.annotations.NotNull;
 import packets.outgoing.rooms.entities.chat.RoomUserTalkMessageComposer;
 import packets.outgoing.rooms.entities.chat.RoomUserWhisperMessageComposer;
@@ -57,7 +58,10 @@ public class WiredTriggerEntitySayKeyword extends WiredTrigger {
                         .addEntity(WiredEntitySourceType.Trigger, entityTalkEvent.entity())
         );
 
-        final var triggerShoutType = WiredEffectMessage.WiredShoutType.fromString(this.getInputContextVariables().get(TRIGGER_SHOUT_TYPE_PARAM).getValue());
+        final var triggerShoutTypeVariable =
+                (WiredVariable<String>) this.getInputContextVariables().get(TRIGGER_SHOUT_TYPE_PARAM);
+        if (triggerShoutTypeVariable == null) return;
+        final var triggerShoutType = WiredEffectMessage.WiredShoutType.fromString(triggerShoutTypeVariable.getValue());
         switch (triggerShoutType) {
             case WHISPER:
                 if (entityTalkEvent.entity() instanceof IPlayerEntity playerEntity)

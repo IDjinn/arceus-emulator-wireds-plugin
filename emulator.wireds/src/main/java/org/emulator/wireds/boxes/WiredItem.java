@@ -119,11 +119,11 @@ public abstract class WiredItem extends AdvancedFloorItem {
         return 0;
     }
 
-    public Map<String, WiredVariable> getInputContextVariables() {
+    public Map<String, WiredVariable<?>> getInputContextVariables() {
         return this.settings.getInputContextVariables();
     }
 
-    public Map<String, WiredVariable> getOutputContextVariables() {
+    public Map<String, WiredVariable<?>> getOutputContextVariables() {
         return this.settings.getOutputContextVariables();
     }
 
@@ -141,8 +141,8 @@ public abstract class WiredItem extends AdvancedFloorItem {
     }
 
 
-    public List<WiredVariable> getCommonVariables() {
-        final var variables = new ArrayList<WiredVariable>();
+    public List<WiredVariable<?>> getCommonVariables() {
+        final var variables = new ArrayList<WiredVariable<?>>();
         for (final Map.Entry<String, Function<WiredItem, String>> entry : COMMON_WIRED_VARIABLES.entrySet()) {
             final var variable = new WiredVariable(entry.getKey(), entry.getValue().apply(this), "", "",
                     WiredVariableType.Stack);

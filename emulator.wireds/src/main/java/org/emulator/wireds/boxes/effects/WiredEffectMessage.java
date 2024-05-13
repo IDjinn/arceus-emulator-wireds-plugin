@@ -6,6 +6,7 @@ import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.entities.IPlayerEntity;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredEvent;
+import org.emulator.wireds.boxes.variables.WiredVariable;
 import packets.outgoing.rooms.entities.chat.RoomUserWhisperMessageComposer;
 
 public class WiredEffectMessage extends WiredEffect {
@@ -19,10 +20,12 @@ public class WiredEffectMessage extends WiredEffect {
     }
     
     public boolean evaluate(final WiredEvent event) {
-        final var type = WiredShoutType.fromString(this.getInputContextVariables().get(SHOUT_TYPE_PARAM).getValue());
+        final var shoutTypeVariable = (WiredVariable<String>) this.getInputContextVariables().get(SHOUT_TYPE_PARAM);
+        final var type = WiredShoutType.fromString(shoutTypeVariable.getValue());
         if (type.equals(WiredShoutType.NONE)) return false;
 
-        final var message = event.handleVariables(this.getInputContextVariables().get(WIRED_MESSAGE_PARAM).getValue());
+        final var messageVariable = (WiredVariable<String>) this.getInputContextVariables().get(WIRED_MESSAGE_PARAM);
+        final var message = event.handleVariables(messageVariable.getValue());
         for (final var entity : event.getEntities(WiredEntitySourceType.Trigger)) {
             if (entity instanceof IPlayerEntity playerEntity) {
                 switch (type) {

@@ -43,9 +43,9 @@ public class WiredItemReader {
         return settings;
     }
 
-    private static Map<String, WiredVariable> readWiredVariables(final IIncomingPacket packet) {
+    private static Map<String, WiredVariable<?>> readWiredVariables(final IIncomingPacket packet) {
         final int variablesCount = packet.readInt();
-        final Map<String, WiredVariable> variables = new HashMap<>(variablesCount);
+        final Map<String, WiredVariable<?>> variables = new HashMap<>(variablesCount);
         for (int i = 0; i < variablesCount; i++) {
             final var variable = WiredVariable.fromPacket(packet);
             variables.put(variable.getKey(), variable);
