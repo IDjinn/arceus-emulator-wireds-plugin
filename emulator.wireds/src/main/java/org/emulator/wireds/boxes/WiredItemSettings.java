@@ -82,7 +82,8 @@ public class WiredItemSettings {
 
     public static WiredItemSettings fromJson(final String json) {
         try {
-            return GsonHelper.getGson().fromJson(json, WiredItemSettings.class);
+            final var settings = GsonHelper.getGson().fromJson(json, WiredItemSettings.class);
+            return settings == null ? new WiredItemSettings() : settings;
         } catch (Exception e) {
             return new WiredItemSettings();
         }

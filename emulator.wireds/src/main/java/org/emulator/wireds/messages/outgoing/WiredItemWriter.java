@@ -8,6 +8,7 @@ public final class WiredItemWriter {
     public static void serialize(final OutgoingPacket packet, final WiredItem wiredItem) {
         packet.appendInt(wiredItem.getId());
         packet.appendInt(wiredItem.getInterface());
+        packet.appendInt(wiredItem.getFurniture().getSpriteId());
 
         // INPUT CONFIGURATIONS
         {
@@ -20,13 +21,13 @@ public final class WiredItemWriter {
         // VARIABLES
         {
             wiredItem.serializeCommonVariables(packet);
-            packet.appendInt(wiredItem.getInputContextVariables().size());
-            for (final var variable : wiredItem.getInputContextVariables().values()) {
+            packet.appendInt(wiredItem.getInputVariablesManager().getVariables().size());
+            for (final var variable : wiredItem.getInputVariablesManager().getVariables().values()) {
                 variable.serialize(packet);
             }
 
-            packet.appendInt(wiredItem.getOutputContextVariables().size());
-            for (final var variable : wiredItem.getOutputContextVariables().values()) {
+            packet.appendInt(wiredItem.getOutputVariablesManager().getVariables().size());
+            for (final var variable : wiredItem.getOutputVariablesManager().getVariables().values()) {
                 variable.serialize(packet);
             }
         }

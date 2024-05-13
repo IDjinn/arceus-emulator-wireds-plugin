@@ -7,7 +7,7 @@ import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.entities.IPlayerEntity;
 import habbo.rooms.entities.events.RoomEntityTalkEvent;
-import org.emulator.wireds.boxes.effects.WiredEffectMessage;
+import org.emulator.wireds.boxes.effects.entities.WiredEffectMessage;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredEvent;
 import org.emulator.wireds.boxes.util.WiredSelectionType;
@@ -25,6 +25,11 @@ public class WiredTriggerEntitySayKeyword extends WiredTrigger {
 
     public WiredTriggerEntitySayKeyword(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
+
+        this.getInputVariablesManager().getOrCreate(new WiredVariable<>(
+                TRIGGER_SHOUT_TYPE_PARAM,
+                WiredEffectMessage.WiredShoutType.WHISPER.ordinal()
+        ));
     }
 
     @Override
@@ -58,10 +63,8 @@ public class WiredTriggerEntitySayKeyword extends WiredTrigger {
                         .addEntity(WiredEntitySourceType.Trigger, entityTalkEvent.entity())
         );
 
-        final var triggerShoutTypeVariable =
-                (WiredVariable<String>) this.getInputContextVariables().get(TRIGGER_SHOUT_TYPE_PARAM);
-        if (triggerShoutTypeVariable == null) return;
-        final var triggerShoutType = WiredEffectMessage.WiredShoutType.fromString(triggerShoutTypeVariable.getValue());
+        final var triggerShoutTypeVariable = this.getInputVariablesManager().get(TRIGGER_SHOUT_TYPE_PARAM, Integer.class);
+        final var triggerShoutType = WiredEffectMessage.WiredShoutType.fromType(triggerShoutTypeVariable.getValue());
         switch (triggerShoutType) {
             case WHISPER:
                 if (entityTalkEvent.entity() instanceof IPlayerEntity playerEntity)

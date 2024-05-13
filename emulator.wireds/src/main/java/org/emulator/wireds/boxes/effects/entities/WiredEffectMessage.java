@@ -1,9 +1,10 @@
-package org.emulator.wireds.boxes.effects;
+package org.emulator.wireds.boxes.effects.entities;
 
 import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.entities.IPlayerEntity;
+import org.emulator.wireds.boxes.effects.WiredEffect;
 import org.emulator.wireds.boxes.util.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.WiredEvent;
 import org.emulator.wireds.boxes.variables.WiredVariable;
@@ -17,14 +18,23 @@ public class WiredEffectMessage extends WiredEffect {
 
     public WiredEffectMessage(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
+
+        this.getInputVariablesManager().getOrCreate(new WiredVariable<>(
+                SHOUT_TYPE_PARAM,
+                WiredShoutType.WHISPER.ordinal()
+        ));
+        this.getInputVariablesManager().getOrCreate(new WiredVariable<>(
+                WIRED_MESSAGE_PARAM,
+                ""
+        ));
     }
     
     public boolean evaluate(final WiredEvent event) {
-        final var shoutTypeVariable = (WiredVariable<String>) this.getInputContextVariables().get(SHOUT_TYPE_PARAM);
+        final var shoutTypeVariable = this.getInputVariablesManager().get(SHOUT_TYPE_PARAM, String.class);
         final var type = WiredShoutType.fromString(shoutTypeVariable.getValue());
         if (type.equals(WiredShoutType.NONE)) return false;
 
-        final var messageVariable = (WiredVariable<String>) this.getInputContextVariables().get(WIRED_MESSAGE_PARAM);
+        final var messageVariable = this.getInputVariablesManager().get(WIRED_MESSAGE_PARAM, String.class);
         final var message = event.handleVariables(messageVariable.getValue());
         for (final var entity : event.getEntities(WiredEntitySourceType.Trigger)) {
             if (entity instanceof IPlayerEntity playerEntity) {

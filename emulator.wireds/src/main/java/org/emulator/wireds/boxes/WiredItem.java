@@ -12,6 +12,7 @@ import org.emulator.wireds.boxes.util.WiredItemSourceType;
 import org.emulator.wireds.boxes.util.WiredSelectionType;
 import org.emulator.wireds.boxes.util.WiredVariableType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
+import org.emulator.wireds.boxes.variables.WiredVariableManager;
 import org.emulator.wireds.component.WiredExecutionPipeline;
 import org.emulator.wireds.component.WiredManager;
 import org.jetbrains.annotations.NotNull;
@@ -38,11 +39,16 @@ public abstract class WiredItem extends AdvancedFloorItem {
     protected boolean needSaveSettings;
     protected WiredExecutionPipeline executionPipeline;
 
+    private final WiredVariableManager inputVariablesManager;
+    private final WiredVariableManager outputVariablesManager;
+
     public WiredItem(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
         this.settings = WiredItemSettings.fromJson(itemData.getWiredData());
         this.selectedItems = new HashMap<>();
         this.executionPipeline = Objects.requireNonNull(room.getCustomComponent(WiredManager.class)).getExecutionPipeline();
+        this.inputVariablesManager = new WiredVariableManager(this, this.settings.getInputContextVariables());
+        this.outputVariablesManager = new WiredVariableManager(this, this.settings.getOutputContextVariables());
     }
 
     @Override
@@ -119,14 +125,6 @@ public abstract class WiredItem extends AdvancedFloorItem {
         return 0;
     }
 
-    public Map<String, WiredVariable<?>> getInputContextVariables() {
-        return this.settings.getInputContextVariables();
-    }
-
-    public Map<String, WiredVariable<?>> getOutputContextVariables() {
-        return this.settings.getOutputContextVariables();
-    }
-
     public WiredVariableType getWiredVariableContextType() {
         return this.settings.getWiredVariableContextType();
     }
@@ -174,5 +172,13 @@ public abstract class WiredItem extends AdvancedFloorItem {
 
     public void setNeedSaveSettings(final boolean needSaveSettings) {
         this.needSaveSettings = needSaveSettings;
+    }
+
+    public WiredVariableManager getInputVariablesManager() {
+        return this.inputVariablesManager;
+    }
+
+    public WiredVariableManager getOutputVariablesManager() {
+        return this.outputVariablesManager;
     }
 }

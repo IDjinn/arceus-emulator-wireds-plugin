@@ -8,7 +8,7 @@ import core.plugins.IPlugin;
 import habbo.rooms.components.objects.items.IRoomItemFactory;
 import networking.packets.IPacketManager;
 import org.apache.maven.artifact.versioning.ComparableVersion;
-import org.emulator.wireds.boxes.effects.WiredEffectMessage;
+import org.emulator.wireds.boxes.effects.entities.WiredEffectMessage;
 import org.emulator.wireds.boxes.selectors.WiredSelectorFilterFurniture;
 import org.emulator.wireds.boxes.triggers.WiredTriggerEntitySayKeyword;
 import org.emulator.wireds.messages.incoming.WiredEffectSaveEvent;
