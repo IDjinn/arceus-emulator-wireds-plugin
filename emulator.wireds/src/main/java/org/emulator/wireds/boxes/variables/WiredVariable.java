@@ -14,7 +14,7 @@ public class WiredVariable<T> extends Variable<T> implements IVariable<T> {
 
     public WiredVariable(final String key, final @Nullable T value) {
         super(key, value);
-        this.contextType = WiredVariableType.Box;
+        this.contextType = WiredVariableType.Stack;
         this.alias = "";
         this.defaultValue = "";
     }

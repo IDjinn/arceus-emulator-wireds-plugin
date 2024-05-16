@@ -16,10 +16,7 @@ import org.emulator.wireds.boxes.util.selection.WiredItemSourceType;
 import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import utils.pathfinder.Position;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class WiredEvent extends PipelineEvent {
     @Inject
@@ -178,6 +175,12 @@ public final class WiredEvent extends PipelineEvent {
     }
 
     public String handleVariables(final String template) {
-        return this.variableMessageFactory.format(template, this.variables.get(WiredVariableType.Stack));
+        final var vars = new ArrayList<IVariable<?>>();
+        for (final var wiredVariableType : WiredVariableType.values()) {
+            if (wiredVariableType.equals(WiredVariableType.Box)) continue;
+
+            vars.addAll(this.variables.get(wiredVariableType));
+        }
+        return this.variableMessageFactory.format(template, vars);
     }
 }

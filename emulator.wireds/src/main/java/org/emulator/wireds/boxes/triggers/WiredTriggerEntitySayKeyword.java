@@ -63,7 +63,7 @@ public class WiredTriggerEntitySayKeyword extends WiredTrigger {
     public int getTriggerHash() {
         return Objects.hash(
                 InteractionName.hashCode(),
-                this.getInputVariablesManager().get(TRIGGER_SHOUT_TYPE_PARAM).hashCode(),
+                this.getInputVariablesManager().get(TRIGGER_MESSAGE).hashCode(),
                 this.getPosition().hashCode()
         );
     }
@@ -71,8 +71,7 @@ public class WiredTriggerEntitySayKeyword extends WiredTrigger {
     @EventListener(priority = EventListenerPriority.Low, listenCancelled = false)
     public void onEntityTalk(@NotNull RoomEntityTalkEvent entityTalkEvent) {
         entityTalkEvent.setCancelled(true);
-        this.executionPipeline.execute(
-                new WiredEvent(
+        this.executionPipeline.execute(new WiredEvent(
                         entityTalkEvent,
                         this.getPosition(),
                         Objects.hash(

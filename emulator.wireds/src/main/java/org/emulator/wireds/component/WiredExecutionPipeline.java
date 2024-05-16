@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.emulator.wireds.boxes.base.condition.LogicalType;
 import org.emulator.wireds.boxes.util.WiredEvent;
+import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 
 import java.util.Map;
 import java.util.Optional;
@@ -26,6 +27,17 @@ public class WiredExecutionPipeline extends DefaultPipeline<WiredEvent> implemen
     public WiredExecutionPipeline(WiredManager wiredManager) {
         this.wiredManager = wiredManager;
         this.executingStacks = new ConcurrentHashMap<>();
+        this.addStep("handle-variables", ctx -> {
+            for (final var wired : this.wiredManager.getWireds().values()) {
+                if (!wired.getPosition().equals(ctx.getEvent().getTriggerPosition())) continue;
+
+                for (final var variable : wired.getOutputVariablesManager().getVariables().values()) {
+                    if (variable.getContextType().equals(WiredVariableType.Box)) continue;
+                    ctx.getEvent().addVariable(variable.getContextType(), variable);
+                }
+            }
+            return ctx;
+        });
         this.addStep("handle-selectors", ctx -> {
             final var selectors = this.wiredManager.getSelectorsAt(ctx.getEvent().getTriggerPosition());
             for (final var selector : selectors) {
