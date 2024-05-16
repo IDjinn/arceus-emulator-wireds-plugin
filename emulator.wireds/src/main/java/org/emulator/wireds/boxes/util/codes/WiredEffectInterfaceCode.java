@@ -2,7 +2,7 @@ package org.emulator.wireds.boxes.util.codes;
 
 public enum WiredEffectInterfaceCode implements WiredInterfaceCode {
     TOGGLE_ITEM_STATE(0),
-    SHOW_MESSAGE(7),
+    SHOW_MESSAGE(1),
 
     ;
 

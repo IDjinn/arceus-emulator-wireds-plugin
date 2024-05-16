@@ -10,6 +10,8 @@ import org.emulator.wireds.boxes.util.WiredShoutType;
 import org.emulator.wireds.boxes.util.codes.WiredEffectInterfaceCode;
 import org.emulator.wireds.boxes.util.selection.WiredEntitySourceType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
+import packets.outgoing.rooms.entities.chat.RoomUserShoutMessageComposer;
+import packets.outgoing.rooms.entities.chat.RoomUserTalkMessageComposer;
 import packets.outgoing.rooms.entities.chat.RoomUserWhisperMessageComposer;
 
 public class WiredEffectMessage extends WiredEffect {
@@ -23,7 +25,7 @@ public class WiredEffectMessage extends WiredEffect {
 
         this.getInputVariablesManager().getOrCreate(new WiredVariable<>(
                 SHOUT_TYPE_PARAM,
-                WiredShoutType.WHISPER.ordinal()
+                WiredShoutType.WHISPER.getType()
         ));
         this.getInputVariablesManager().getOrCreate(new WiredVariable<>(
                 WIRED_MESSAGE_PARAM,
@@ -45,10 +47,20 @@ public class WiredEffectMessage extends WiredEffect {
                         playerEntity.getClient().sendMessage(new RoomUserWhisperMessageComposer(entity, message));
                         break;
                     case TALK:
-                        this.getRoom().getEntityManager().talk(entity, message, 0);
+                        this.getRoom().broadcastMessage(new RoomUserTalkMessageComposer(
+                                entity,
+                                message,
+                                0,
+                                0
+                        ));
                         break;
                     case SHOUT:
-                        this.getRoom().getEntityManager().shout(entity, message, 0);
+                        this.getRoom().broadcastMessage(new RoomUserShoutMessageComposer(
+                                entity,
+                                message,
+                                0,
+                                0
+                        ));
                         break;
                 }
             }

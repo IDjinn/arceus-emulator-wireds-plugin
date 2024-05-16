@@ -26,8 +26,7 @@ public class WiredEffectSaveEvent extends IncomingEvent {
         final IFloorItem item = client.getHabbo().getRoom().getObjectManager().getFloorItem(effectId);
         if (!(item instanceof WiredEffect effect)) return;
 
-        final var settings = WiredItemReader.readSettings(client, packet);
-        effect.setSettings(settings);
+        WiredItemReader.readSettings(effect.getSettings(), packet);
         effect.setNeedSaveSettings(true);
         client.sendMessage(new WiredSavedComposer());
     }

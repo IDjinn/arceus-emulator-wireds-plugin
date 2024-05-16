@@ -26,8 +26,7 @@ public class WiredTriggerSaveEvent extends IncomingEvent {
         final IFloorItem item = client.getHabbo().getRoom().getObjectManager().getFloorItem(triggerId);
         if (!(item instanceof WiredTrigger trigger)) return;
 
-        final var settings = WiredItemReader.readSettings(client, packet);
-        trigger.setSettings(settings);
+        WiredItemReader.readSettings(trigger.getSettings(), packet);
         trigger.setNeedSaveSettings(true);
         client.sendMessage(new WiredSavedComposer());
     }
