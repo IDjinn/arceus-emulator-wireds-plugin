@@ -7,10 +7,11 @@ import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.components.objects.items.floor.AdvancedFloorItem;
 import networking.packets.OutgoingPacket;
-import org.emulator.wireds.boxes.util.WiredEntitySourceType;
-import org.emulator.wireds.boxes.util.WiredItemSourceType;
-import org.emulator.wireds.boxes.util.WiredSelectionType;
-import org.emulator.wireds.boxes.util.WiredVariableType;
+import org.emulator.wireds.boxes.util.codes.WiredInterfaceCode;
+import org.emulator.wireds.boxes.util.selection.WiredEntitySourceType;
+import org.emulator.wireds.boxes.util.selection.WiredItemSourceType;
+import org.emulator.wireds.boxes.util.selection.WiredSelectionType;
+import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
 import org.emulator.wireds.boxes.variables.WiredVariableManager;
 import org.emulator.wireds.component.WiredExecutionPipeline;
@@ -119,7 +120,7 @@ public abstract class WiredItem extends AdvancedFloorItem {
         return this.executionPipeline;
     }
 
-    public abstract int getInterface();
+    public abstract WiredInterfaceCode getInterface();
 
     public int getMaxSelectionCount() {
         return 0;

@@ -7,10 +7,13 @@ import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.entities.IRoomEntity;
 import habbo.variables.IVariable;
 import habbo.variables.IVariableMessageFactory;
-import org.emulator.wireds.boxes.conditions.WiredCondition;
-import org.emulator.wireds.boxes.effects.WiredEffect;
-import org.emulator.wireds.boxes.selectors.WiredSelector;
-import org.emulator.wireds.boxes.triggers.WiredTrigger;
+import org.emulator.wireds.boxes.base.WiredEffect;
+import org.emulator.wireds.boxes.base.WiredSelector;
+import org.emulator.wireds.boxes.base.WiredTrigger;
+import org.emulator.wireds.boxes.base.condition.WiredCondition;
+import org.emulator.wireds.boxes.util.selection.WiredEntitySourceType;
+import org.emulator.wireds.boxes.util.selection.WiredItemSourceType;
+import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import utils.pathfinder.Position;
 
 import java.util.HashMap;
@@ -18,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class WiredEvent extends PipelineEvent {
+public final class WiredEvent extends PipelineEvent {
     @Inject
     private IVariableMessageFactory variableMessageFactory;
 
@@ -32,7 +35,7 @@ public class WiredEvent extends PipelineEvent {
 
     private final Map<WiredItemSourceType, List<IRoomItem>> items;
     private final Map<WiredEntitySourceType, List<IRoomEntity>> entities;
-    private final Map<WiredVariableType, List<IVariable>> variables;
+    private final Map<WiredVariableType, List<IVariable<?>>> variables;
 
     public WiredEvent(Event triggerEvent, Position triggerPosition, int hash) {
         this.triggerEvent = triggerEvent;
@@ -143,7 +146,7 @@ public class WiredEvent extends PipelineEvent {
         return this;
     }
 
-    public WiredEvent addVariables(WiredVariableType sourceType, List<? extends IVariable> variable) {
+    public WiredEvent addVariables(WiredVariableType sourceType, List<IVariable<?>> variable) {
         this.variables.get(sourceType).addAll(variable);
         return this;
     }
@@ -160,7 +163,7 @@ public class WiredEvent extends PipelineEvent {
         return this.entities.get(entitySourceType);
     }
 
-    public Map<WiredVariableType, List<IVariable>> getVariables() {
+    public Map<WiredVariableType, List<IVariable<?>>> getVariables() {
         return this.variables;
     }
 

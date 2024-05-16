@@ -1,4 +1,4 @@
-package org.emulator.wireds.boxes.conditions;
+package org.emulator.wireds.boxes.base.condition;
 
 import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;

@@ -1,7 +1,7 @@
 package org.emulator.wireds.messages.outgoing;
 
 import networking.packets.OutgoingPacket;
-import org.emulator.wireds.boxes.triggers.WiredTrigger;
+import org.emulator.wireds.boxes.base.WiredTrigger;
 import packets.outgoing.OutgoingHeaders;
 
 public class WiredTriggerMessageComposer extends OutgoingPacket {

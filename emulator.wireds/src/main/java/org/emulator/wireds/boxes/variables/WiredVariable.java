@@ -4,7 +4,7 @@ import habbo.variables.IVariable;
 import habbo.variables.Variable;
 import networking.packets.IIncomingPacket;
 import networking.packets.OutgoingPacket;
-import org.emulator.wireds.boxes.util.WiredVariableType;
+import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import org.jetbrains.annotations.Nullable;
 
 public class WiredVariable<T> extends Variable<T> implements IVariable<T> {

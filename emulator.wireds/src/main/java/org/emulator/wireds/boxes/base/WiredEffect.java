@@ -1,4 +1,4 @@
-package org.emulator.wireds.boxes.effects;
+package org.emulator.wireds.boxes.base;
 
 import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;
@@ -8,6 +8,7 @@ import habbo.rooms.entities.IRoomEntity;
 import networking.packets.OutgoingPacket;
 import org.emulator.wireds.boxes.WiredItem;
 import org.emulator.wireds.boxes.util.WiredEvent;
+import org.emulator.wireds.boxes.util.codes.WiredEffectInterfaceCode;
 import org.emulator.wireds.messages.outgoing.WiredEffectMessageComposer;
 
 public abstract class WiredEffect extends WiredItem {
@@ -16,6 +17,9 @@ public abstract class WiredEffect extends WiredItem {
     }
 
     public abstract boolean evaluate(final WiredEvent event);
+
+    @Override
+    public abstract WiredEffectInterfaceCode getInterface();
 
     public int getDelay() {
         return 0;

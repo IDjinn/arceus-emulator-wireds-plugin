@@ -3,8 +3,9 @@ package org.emulator.wireds.boxes.effects.items;
 import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItemData;
-import org.emulator.wireds.boxes.effects.WiredEffect;
+import org.emulator.wireds.boxes.base.WiredEffect;
 import org.emulator.wireds.boxes.util.WiredEvent;
+import org.emulator.wireds.boxes.util.codes.WiredEffectInterfaceCode;
 import org.emulator.wireds.boxes.variables.WiredVariable;
 
 public class WiredEffectToggleItemState extends WiredEffect {
@@ -31,8 +32,8 @@ public class WiredEffectToggleItemState extends WiredEffect {
     }
 
     @Override
-    public int getInterface() {
-        return 7;
+    public WiredEffectInterfaceCode getInterface() {
+        return WiredEffectInterfaceCode.TOGGLE_ITEM_STATE;
     }
 
     public enum ToggleType {

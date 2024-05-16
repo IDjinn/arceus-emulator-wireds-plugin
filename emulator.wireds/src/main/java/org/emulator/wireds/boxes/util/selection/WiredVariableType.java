@@ -1,4 +1,4 @@
-package org.emulator.wireds.boxes.util;
+package org.emulator.wireds.boxes.util.selection;
 
 public enum WiredVariableType {
     Box("box"),

@@ -3,7 +3,7 @@ package org.emulator.wireds.boxes.variables;
 import habbo.variables.IVariableMessageFactory;
 import habbo.variables.VariableMessageFactory;
 import org.emulator.wireds.boxes.WiredItem;
-import org.emulator.wireds.boxes.util.WiredVariableType;
+import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;

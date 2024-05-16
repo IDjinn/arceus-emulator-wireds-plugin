@@ -1,4 +1,4 @@
-package org.emulator.wireds.boxes.addons;
+package org.emulator.wireds.boxes.base;
 
 import habbo.furniture.IFurniture;
 import habbo.rooms.IRoom;

@@ -8,11 +8,11 @@ import habbo.rooms.IRoomComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.emulator.wireds.boxes.WiredItem;
-import org.emulator.wireds.boxes.addons.WiredAddon;
-import org.emulator.wireds.boxes.conditions.WiredCondition;
-import org.emulator.wireds.boxes.effects.WiredEffect;
-import org.emulator.wireds.boxes.selectors.WiredSelector;
-import org.emulator.wireds.boxes.triggers.WiredTrigger;
+import org.emulator.wireds.boxes.base.WiredAddon;
+import org.emulator.wireds.boxes.base.WiredEffect;
+import org.emulator.wireds.boxes.base.WiredSelector;
+import org.emulator.wireds.boxes.base.WiredTrigger;
+import org.emulator.wireds.boxes.base.condition.WiredCondition;
 import storage.repositories.rooms.IRoomItemsRepository;
 import utils.pathfinder.Position;
 

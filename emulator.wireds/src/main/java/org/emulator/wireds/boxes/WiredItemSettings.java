@@ -1,10 +1,10 @@
 package org.emulator.wireds.boxes;
 
 import habbo.furniture.extra.data.MapExtraData;
-import org.emulator.wireds.boxes.util.WiredEntitySourceType;
-import org.emulator.wireds.boxes.util.WiredItemSourceType;
-import org.emulator.wireds.boxes.util.WiredSelectionType;
-import org.emulator.wireds.boxes.util.WiredVariableType;
+import org.emulator.wireds.boxes.util.selection.WiredEntitySourceType;
+import org.emulator.wireds.boxes.util.selection.WiredItemSourceType;
+import org.emulator.wireds.boxes.util.selection.WiredSelectionType;
+import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
 import utils.gson.GsonHelper;
 

@@ -1,4 +1,4 @@
-package org.emulator.wireds.boxes.selectors;
+package org.emulator.wireds.boxes.base;
 
 import com.google.inject.Inject;
 import habbo.furniture.IFurniture;
@@ -8,14 +8,15 @@ import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.components.objects.items.wall.IWallItem;
 import habbo.rooms.entities.IRoomEntity;
 import org.emulator.wireds.boxes.WiredItem;
-import org.emulator.wireds.boxes.util.Area;
-import org.emulator.wireds.boxes.util.AreaHelper;
 import org.emulator.wireds.boxes.util.WiredEvent;
+import org.emulator.wireds.boxes.util.codes.WiredSelectionInterfaceCode;
+import org.emulator.wireds.boxes.util.selection.Area;
+import org.emulator.wireds.boxes.util.selection.AreaHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WiredSelector extends WiredItem {
+public abstract class WiredSelector extends WiredItem {
     protected final List<Area> areas;
     protected boolean allowWallItems;
 
@@ -26,9 +27,7 @@ public class WiredSelector extends WiredItem {
     }
 
     @Override
-    public int getInterface() {
-        return 0;
-    }
+    public abstract WiredSelectionInterfaceCode getInterface();
 
     @Override
     public int getMaxSelectionCount() {

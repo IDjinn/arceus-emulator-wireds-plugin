@@ -1,4 +1,4 @@
-package org.emulator.wireds.boxes.conditions;
+package org.emulator.wireds.boxes.base.condition;
 
 public enum ConditionType {
     Identity,

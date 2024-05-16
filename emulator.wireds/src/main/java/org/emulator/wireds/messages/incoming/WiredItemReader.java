@@ -4,9 +4,9 @@ import habbo.furniture.extra.data.MapExtraData;
 import networking.client.IClient;
 import networking.packets.IIncomingPacket;
 import org.emulator.wireds.boxes.WiredItemSettings;
-import org.emulator.wireds.boxes.util.WiredEntitySourceType;
-import org.emulator.wireds.boxes.util.WiredItemSourceType;
-import org.emulator.wireds.boxes.util.WiredVariableType;
+import org.emulator.wireds.boxes.util.selection.WiredEntitySourceType;
+import org.emulator.wireds.boxes.util.selection.WiredItemSourceType;
+import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import org.emulator.wireds.boxes.variables.WiredVariable;
 
 import java.util.ArrayList;

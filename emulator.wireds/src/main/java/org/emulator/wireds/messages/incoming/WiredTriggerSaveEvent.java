@@ -5,7 +5,7 @@ import habbo.rooms.components.objects.items.floor.IFloorItem;
 import networking.client.IClient;
 import networking.packets.IIncomingPacket;
 import networking.packets.IncomingEvent;
-import org.emulator.wireds.boxes.triggers.WiredTrigger;
+import org.emulator.wireds.boxes.base.WiredTrigger;
 import org.emulator.wireds.messages.outgoing.WiredSavedComposer;
 import packets.incoming.IncomingHeaders;
 
