@@ -6,7 +6,7 @@ import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.components.objects.items.floor.AdvancedFloorItem;
-import networking.packets.OutgoingPacket;
+import networking.packets.IOutgoingPacket;
 import org.emulator.wireds.boxes.util.codes.WiredInterfaceCode;
 import org.emulator.wireds.boxes.util.selection.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.selection.WiredItemSourceType;
@@ -130,7 +130,7 @@ public abstract class WiredItem extends AdvancedFloorItem {
         return this.settings.getWiredVariableContextType();
     }
 
-    public void serializeCommonVariables(final OutgoingPacket packet) {
+    public void serializeCommonVariables(final IOutgoingPacket packet) {
         packet.appendInt(COMMON_WIRED_VARIABLES.size());
         for (final Map.Entry<String, Function<WiredItem, String>> entry : COMMON_WIRED_VARIABLES.entrySet()) {
             final var variable = new WiredVariable(entry.getKey(), entry.getValue().apply(this), "", "",
@@ -150,7 +150,7 @@ public abstract class WiredItem extends AdvancedFloorItem {
         return variables;
     }
 
-    public void serializeWiredExtraStuff(final OutgoingPacket packet) {
+    public void serializeWiredExtraStuff(final IOutgoingPacket packet) {
 
     }
 

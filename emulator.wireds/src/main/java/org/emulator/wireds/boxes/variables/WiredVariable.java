@@ -3,7 +3,7 @@ package org.emulator.wireds.boxes.variables;
 import habbo.variables.IVariable;
 import habbo.variables.Variable;
 import networking.packets.IIncomingPacket;
-import networking.packets.OutgoingPacket;
+import networking.packets.IOutgoingPacket;
 import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,7 +42,7 @@ public class WiredVariable<T> extends Variable<T> implements IVariable<T> {
     }
 
     @Override
-    public void serialize(final OutgoingPacket packet) {
+    public void serialize(final IOutgoingPacket packet) {
         super.serialize(packet);
         packet.appendString(this.getContextType().getType());
         packet.appendString("");
