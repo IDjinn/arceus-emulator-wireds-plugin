@@ -8,7 +8,7 @@ import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import org.jetbrains.annotations.Nullable;
 
 public class WiredVariable<T> extends Variable<T> implements IVariable<T> {
-    private WiredVariableType contextType;
+    private final WiredVariableType contextType;
     private @Nullable String alias;
     private @Nullable String defaultValue;
 

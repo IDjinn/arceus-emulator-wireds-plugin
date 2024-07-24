@@ -29,11 +29,6 @@ public abstract class WiredSelector extends WiredItem {
     @Override
     public abstract WiredSelectionInterfaceCode getInterface();
 
-    @Override
-    public int getMaxSelectionCount() {
-        return 0;
-    }
-
     public void filterEvent(final WiredEvent event) {
         this.filterItems(event);
         this.filterEntities(event);

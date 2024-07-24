@@ -23,6 +23,6 @@ public enum StringComparisonType {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 }

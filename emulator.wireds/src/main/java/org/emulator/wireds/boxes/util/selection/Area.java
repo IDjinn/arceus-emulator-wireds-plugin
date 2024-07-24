@@ -27,8 +27,7 @@ public class Area {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof Area) {
-            final var other = (Area) obj;
+        if (obj instanceof final Area other) {
             return this.pointA.equals(other.pointA) && this.pointB.equals(other.pointB);
         }
         return false;

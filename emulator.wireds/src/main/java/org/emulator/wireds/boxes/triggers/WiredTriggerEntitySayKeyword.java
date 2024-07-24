@@ -89,10 +89,7 @@ public class WiredTriggerEntitySayKeyword extends WiredTrigger {
                 if (entityTalkEvent.entity() instanceof IPlayerEntity playerEntity)
                     playerEntity.getClient().sendMessage(new RoomUserWhisperMessageComposer(entityTalkEvent.entity(), entityTalkEvent.message(), 0, 0));
                 break;
-            case TALK:
-                this.getRoom().broadcastMessage(new RoomUserTalkMessageComposer(entityTalkEvent.entity(), entityTalkEvent.message(), 0, 0));
-                break;
-            case SHOUT:
+            case TALK, SHOUT:
                 this.getRoom().broadcastMessage(new RoomUserTalkMessageComposer(entityTalkEvent.entity(), entityTalkEvent.message(), 0, 0));
                 break;
         }

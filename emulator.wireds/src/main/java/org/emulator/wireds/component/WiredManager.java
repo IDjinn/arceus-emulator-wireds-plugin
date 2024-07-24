@@ -67,7 +67,6 @@ public class WiredManager implements IRoomComponent {
 
             this.registerWired(wiredItem);
         }
-        ;
     }
 
     @Override

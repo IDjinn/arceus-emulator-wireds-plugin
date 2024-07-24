@@ -24,6 +24,6 @@ public enum TriggerEntitiesType {
     }
 
     public String getEntity() {
-        return entity;
+        return this.entity;
     }
 }

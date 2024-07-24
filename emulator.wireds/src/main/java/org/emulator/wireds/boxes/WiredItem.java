@@ -38,7 +38,7 @@ public abstract class WiredItem extends AdvancedFloorItem {
     
     protected boolean isFlashing;
     protected boolean needSaveSettings;
-    protected WiredExecutionPipeline executionPipeline;
+    protected final WiredExecutionPipeline executionPipeline;
 
     private final WiredVariableManager inputVariablesManager;
     private final WiredVariableManager outputVariablesManager;

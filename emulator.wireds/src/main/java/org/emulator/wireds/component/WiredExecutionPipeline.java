@@ -80,8 +80,6 @@ public class WiredExecutionPipeline extends DefaultPipeline<WiredEvent> implemen
         });
         this.addStep("handle-effects", ctx -> {
             for (final var effect : ctx.getEvent().getEffects()) {
-//                ctx.getEvent().addVariables(effect.getWiredVariableContextType(),
-//                        effect.getCommonVariables());
                 effect.evaluate(ctx.getEvent());
             }
             return ctx;

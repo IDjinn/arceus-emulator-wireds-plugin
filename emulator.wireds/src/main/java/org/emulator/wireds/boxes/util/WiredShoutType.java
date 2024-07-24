@@ -24,6 +24,6 @@ public enum WiredShoutType {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 }

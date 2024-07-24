@@ -10,7 +10,7 @@ import org.emulator.wireds.boxes.variables.WiredVariable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WiredItemReader {
+public final class WiredItemReader {
     public static WiredItemSettings readSettings(
             final WiredItemSettings settings,
             final IIncomingPacket packet

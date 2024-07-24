@@ -92,7 +92,8 @@ public class WiredVariableManager {
 
     public void tick() {
         for (final var variable : this.getVariables().values()) {
-            if (variable.expiresAt().isEmpty()) continue;
+            if (variable.expiresAt().isEmpty()) {
+            }
 //   TODO          if (variable.expiresAt().get().isBefore(Instant.now())) {
 //                this.removeVariable(variable.getKey());
 //            }

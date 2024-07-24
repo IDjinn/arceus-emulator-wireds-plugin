@@ -17,11 +17,11 @@ public class WiredEffectToggleItemState extends WiredEffect {
     public WiredEffectToggleItemState(final IRoomItemData itemData, final IRoom room, final IFurniture furniture) {
         super(itemData, room, furniture);
 
-        this.getInputVariablesManager().getOrCreate(new WiredVariable<Boolean>(
+        this.getInputVariablesManager().getOrCreate(new WiredVariable<>(
                 TOGGLE_ALL_ITEMS_PARAM,
                 true
         ));
-        this.getInputVariablesManager().getOrCreate(new WiredVariable<Integer>(
+        this.getInputVariablesManager().getOrCreate(new WiredVariable<>(
                 TOGGLE_TYPE_PARAM,
                 ToggleType.NEXT.getType()
         ));
@@ -56,7 +56,7 @@ public class WiredEffectToggleItemState extends WiredEffect {
         }
 
         public int getType() {
-            return type;
+            return this.type;
         }
     }
 

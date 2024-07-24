@@ -19,7 +19,7 @@ public class WiredItemSettings {
 
     private WiredItemSourceType wiredItemSourceType;
     private WiredEntitySourceType wiredEntitySourceType;
-    private WiredVariableType variableContextType;
+    private final WiredVariableType variableContextType;
     private final Map<String, WiredVariable<?>> inputContextVariables;
     private final Map<String, WiredVariable<?>> outputContextVariables;
 
