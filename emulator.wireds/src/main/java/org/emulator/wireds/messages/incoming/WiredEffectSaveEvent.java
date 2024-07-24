@@ -1,7 +1,7 @@
 package org.emulator.wireds.messages.incoming;
 
 import com.google.inject.Singleton;
-import habbo.rooms.components.objects.items.floor.IFloorItem;
+import habbo.rooms.components.objects.items.floor.IFloorFloorItem;
 import networking.client.IClient;
 import networking.packets.IIncomingPacket;
 import networking.packets.IncomingEvent;
@@ -23,7 +23,7 @@ public class WiredEffectSaveEvent extends IncomingEvent {
         if (!client.getHabbo().getRoom().getRightsManager().hasRights(client.getHabbo())) return;
 
         final int effectId = packet.readInt();
-        final IFloorItem item = client.getHabbo().getRoom().getObjectManager().getFloorItem(effectId);
+        final IFloorFloorItem item = client.getHabbo().getRoom().getObjectManager().getFloorItem(effectId);
         if (!(item instanceof WiredEffect effect)) return;
 
         WiredItemReader.readSettings(effect.getSettings(), packet);

@@ -60,7 +60,7 @@ public abstract class WiredSelector extends WiredItem {
     protected boolean filterEntity(final IRoomEntity entity) {
         if (this.areas.isEmpty())
             return true;
-        
-        return AreaHelper.isItInside(this.areas, entity.getPosition());
+
+        return AreaHelper.isItInside(this.areas, entity.getPositionComponent().getPosition());
     }
 }
