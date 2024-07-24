@@ -4,7 +4,7 @@ import networking.packets.OutgoingPacket;
 import org.jetbrains.annotations.Nullable;
 import packets.outgoing.OutgoingHeaders;
 
-public class WiredValidationError extends OutgoingPacket {
+public class WiredValidationError extends OutgoingPacket<U> {
     public WiredValidationError(String key, String message, @Nullable String helperLink) {
         super(OutgoingHeaders.WiredValidationError);
 

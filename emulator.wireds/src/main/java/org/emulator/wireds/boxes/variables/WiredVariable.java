@@ -42,7 +42,7 @@ public class WiredVariable<T> extends Variable<T> implements IVariable<T> {
     }
 
     @Override
-    public void serialize(final OutgoingPacket packet) {
+    public void serialize(final OutgoingPacket<U> packet) {
         super.serialize(packet);
         packet.appendString(this.getContextType().getType());
         packet.appendString("");

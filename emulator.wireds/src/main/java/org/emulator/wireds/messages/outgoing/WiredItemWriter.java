@@ -5,7 +5,7 @@ import org.emulator.wireds.boxes.WiredItem;
 import org.emulator.wireds.boxes.util.selection.WiredSelectionType;
 
 public final class WiredItemWriter {
-    public static void serialize(final OutgoingPacket packet, final WiredItem wiredItem) {
+    public static void serialize(final OutgoingPacket<U> packet, final WiredItem wiredItem) {
         packet.appendInt(wiredItem.getId());
         packet.appendInt(wiredItem.getVirtualId());
         packet.appendInt(wiredItem.getInterface().getCode());

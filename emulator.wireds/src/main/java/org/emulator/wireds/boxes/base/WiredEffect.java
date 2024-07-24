@@ -26,7 +26,7 @@ public abstract class WiredEffect extends WiredItem {
     }
 
     @Override
-    public void serializeWiredExtraStuff(final OutgoingPacket packet) {
+    public void serializeWiredExtraStuff(final OutgoingPacket<U> packet) {
         packet.appendInt(this.getDelay());
     }
 
