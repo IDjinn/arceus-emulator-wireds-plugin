@@ -1,7 +1,7 @@
 package org.emulator.wireds.messages.incoming;
 
 import com.google.inject.Singleton;
-import habbo.rooms.components.objects.items.floor.IFloorFloorItem;
+import habbo.rooms.components.objects.items.floor.IFloorItem;
 import networking.client.IClient;
 import networking.packets.IIncomingPacket;
 import networking.packets.IncomingEvent;
@@ -23,7 +23,7 @@ public class WiredTriggerSaveEvent extends IncomingEvent {
         if (!client.getHabbo().getPlayerEntity().hasRights()) return;
 
         final int triggerId = packet.readInt();
-        final IFloorFloorItem item = client.getHabbo().getRoom().getObjectManager().getFloorItem(triggerId);
+        final IFloorItem item = client.getHabbo().getRoom().getObjectManager().getFloorItem(triggerId);
         if (!(item instanceof WiredTrigger trigger)) return;
 
         WiredItemReader.readSettings(trigger.getSettings(), packet);
