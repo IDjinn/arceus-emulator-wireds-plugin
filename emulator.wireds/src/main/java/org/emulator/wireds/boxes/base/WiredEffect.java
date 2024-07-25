@@ -5,7 +5,7 @@ import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.entities.IPlayerEntity;
 import habbo.rooms.entities.IRoomEntity;
-import networking.packets.IOutgoingPacket;
+import networking.packets.outgoing.IOutgoingDTOSerializer;
 import org.emulator.wireds.boxes.WiredItem;
 import org.emulator.wireds.boxes.util.WiredEvent;
 import org.emulator.wireds.boxes.util.codes.WiredEffectInterfaceCode;
@@ -26,7 +26,7 @@ public abstract class WiredEffect extends WiredItem {
     }
 
     @Override
-    public void serializeWiredExtraStuff(final IOutgoingPacket packet) {
+    public void serializeWiredExtraStuff(final IOutgoingDTOSerializer packet) {
         packet.appendInt(this.getDelay());
     }
 

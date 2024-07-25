@@ -1,6 +1,6 @@
 package org.emulator.wireds.messages.incoming;
 
-import networking.packets.IIncomingPacket;
+import networking.packets.incoming.IIncomingPacket;
 import org.emulator.wireds.boxes.WiredItemSettings;
 import org.emulator.wireds.boxes.util.selection.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.selection.WiredItemSourceType;
