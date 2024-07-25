@@ -16,7 +16,8 @@ import org.emulator.wireds.messages.incoming.WiredTriggerSaveEvent;
 
 @Singleton
 public class WiredPlugin extends AbstractModule implements IPlugin {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
+        throw new IllegalCallerException("Cannot be called");
     }
     
     private static final String author = "IDjinn";
