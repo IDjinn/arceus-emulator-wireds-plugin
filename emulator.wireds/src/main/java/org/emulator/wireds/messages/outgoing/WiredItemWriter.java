@@ -1,6 +1,5 @@
 package org.emulator.wireds.messages.outgoing;
 
-import networking.packets.outgoing.IOutgoingDTOSerializer;
 import org.emulator.wireds.boxes.WiredItem;
 import org.emulator.wireds.boxes.util.selection.WiredSelectionType;
 

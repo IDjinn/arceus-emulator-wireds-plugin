@@ -6,7 +6,6 @@ import habbo.rooms.IRoom;
 import habbo.rooms.components.objects.items.IRoomItem;
 import habbo.rooms.components.objects.items.IRoomItemData;
 import habbo.rooms.components.objects.items.floor.AdvancedFloorItem;
-import networking.packets.outgoing.IOutgoingDTOSerializer;
 import org.emulator.wireds.boxes.util.codes.WiredInterfaceCode;
 import org.emulator.wireds.boxes.util.selection.WiredEntitySourceType;
 import org.emulator.wireds.boxes.util.selection.WiredItemSourceType;

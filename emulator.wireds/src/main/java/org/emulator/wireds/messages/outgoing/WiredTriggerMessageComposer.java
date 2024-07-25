@@ -1,6 +1,5 @@
 package org.emulator.wireds.messages.outgoing;
 
-import networking.packets.outgoing.IOutgoingDTOSerializer;
 import org.emulator.wireds.boxes.base.WiredTrigger;
 import packets.outgoing.OutgoingHeaders;
 

@@ -3,7 +3,6 @@ package org.emulator.wireds.boxes.variables;
 import habbo.variables.IVariable;
 import habbo.variables.Variable;
 import networking.packets.incoming.IIncomingPacket;
-import networking.packets.outgoing.IOutgoingDTOSerializer;
 import org.emulator.wireds.boxes.util.selection.WiredVariableType;
 import org.jetbrains.annotations.Nullable;
 
