@@ -8,7 +8,7 @@ import networking.packets.incoming.IIncomingPacket;
 import networking.packets.IncomingEvent;
 import org.emulator.wireds.boxes.base.WiredEffect;
 import org.emulator.wireds.messages.outgoing.WiredSavedComposer;
-import packets.incoming.IncomingHeaders;
+import incoming.IncomingHeaders;
 
 @Singleton
 public class WiredEffectSaveEvent implements IIncomingEvent {

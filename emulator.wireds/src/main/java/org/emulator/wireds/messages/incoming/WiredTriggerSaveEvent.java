@@ -7,7 +7,7 @@ import networking.packets.incoming.IIncomingPacket;
 import networking.packets.IncomingEvent;
 import org.emulator.wireds.boxes.base.WiredTrigger;
 import org.emulator.wireds.messages.outgoing.WiredSavedComposer;
-import packets.incoming.IncomingHeaders;
+import incoming.IncomingHeaders;
 
 @Singleton
 public class WiredTriggerSaveEvent extends IncomingEvent {
